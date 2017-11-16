@@ -1,0 +1,142 @@
+/* COMP466 Assignment 2: styles.css
+Name: Kevin Wong
+ID: 3339323 */
+/* External style sheet */
+
+body { 
+	font-family: arial, helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-image: url("background.jpg");
+	background-size: 100% auto;
+}
+
+.navigation {
+	color: #ffffff;
+	list-style: none;
+	text-align: right;
+	padding: 3ex 0 3ex 0;
+	text-shadow: -3px 0 #000000, 0 3px #000000
+}
+
+.navigation > li {
+	display: inline-block;
+	padding: 0 3ex 0 3ex;
+	font-size: 5ex;
+}
+
+.title {
+	color: #ffffff;
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+	float: left;
+	font-size: 4ex;
+	font-weight: bold;
+	padding-left: 2ex;
+}
+
+.navigation > li:hover {
+	color: #000000;
+	text-shadow: none;
+}
+
+.main_bookmarks {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10%;
+	width: 30%;
+	height: 30%;
+	border-width: 1ex;
+	border-style: solid;
+	border-color: #000000;
+}
+
+.title_centre {
+	text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    width: 15%;
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 0px;
+    top: -13px;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+.close_container {
+    text-align: center;
+    position: relative;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+.container {
+    padding: 16px;
+}
+
+.login_info {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.login_button {
+	background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login_button:hover {
+    opacity: 0.8;
+}
