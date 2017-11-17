@@ -5,33 +5,36 @@ ID: 3339323
 */
 
 // Show Login screen
-function login_menu() {
-	document.getElementById("login_inputs").style.display = "block";
+function show(element) {
+	document.getElementById(element).style.display = "block";
 }
 
 // Hide Login screen
-function hide_login_menu() {
-	document.getElementById("login_inputs").style.display = "none";
+function hide(element) {
+	document.getElementById(element).style.display = "none";
 }
 
 // Initial setup function
 function start() {
 	
 	document.getElementById("login_prompt").addEventListener(
-		"click", login_menu, false);
+		"click", function() {show("login_inputs");}, false);
+
+	document.getElementById("register_prompt").addEventListener(
+		"click", function() {show("register_inputs");}, false);
 
 	document.getElementById("close_login").addEventListener(
-		"click", hide_login_menu, false);
+		"click", function() {hide("login_inputs");}, false);
 
-	// Get the modal
-	var modal = document.getElementById('login_inputs');
+	document.getElementById("close_register").addEventListener(
+		"click", function() {hide("register_inputs");}, false);
 
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
-	}
+	document.getElementById('login_inputs').addEventListener("click",
+		function() {this.style.display = "none";}, false);
+
+	document.getElementById('register_inputs').addEventListener("click",
+		function() {this.style.display = "none";}, false);;
+
 }
 
 // Start after page loads

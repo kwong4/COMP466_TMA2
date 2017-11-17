@@ -118,7 +118,7 @@ body {
     padding: 16px;
 }
 
-.login_info {
+.info {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -127,7 +127,7 @@ body {
     box-sizing: border-box;
 }
 
-.login_button {
+.action_button {
 	background-color: #4CAF50;
     color: white;
     padding: 14px 20px;

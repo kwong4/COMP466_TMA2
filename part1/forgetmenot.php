@@ -23,6 +23,7 @@
 
 			<!-- Banner -->
 			<li id = "login_prompt">Sign In</li>
+			<li id = "register_prompt">Register</li>
 
 		</ul>
 
@@ -54,12 +55,39 @@
 					</div>
 
 					<label><strong>Username: </strong></label>
-					<input type="text" class = "login_info" placeholder="Enter Username" id ="username" required>
+					<input type="text" class = "info" placeholder="Enter Username" id ="username" required>
 					<br>
 					<label><strong>Password: </strong></label>
-					<input type="password" class = "login_info" placeholder="Enter Password" id = "password" required>
+					<input type="password" class = "info" placeholder="Enter Password" id = "password" required>
 			        <br>
-					<button class = "login_button" type="submit">Login</button>
+					<button class = "action_button" type="submit">Login</button>
+				</div>
+			</form>
+		</div>
+
+		<div class = "modal" id = "register_inputs">
+			<form class = "modal-content animate">
+				<div class = "container">
+					<div class = "close_container">
+						<span class="close" id = "close_register" title="Close Login">&times;</span>
+					</div>
+					<br>
+					<label><strong>Username: </strong></label>
+					<input type="text" class = "info" placeholder="Enter Username" id ="reg_username" required>
+					<br>
+					<br>
+					<label><strong>Email: </strong></label>
+					<input type="email" class = "info" placeholder="Enter Username" id ="reg_email" required>
+					<br>
+					<br>
+					<label><strong>Password: </strong></label>
+					<input type="password" class = "info" placeholder="Enter Password" id = "reg_password" required>
+			        <br>
+			        <br>
+			        <label><strong>Repeat Password: </strong></label>
+					<input type="password" class = "info" placeholder="Enter Password" id = "reg_password2" required>
+			        <br>
+					<button class = "action_button" type="submit">Register</button>
 				</div>
 			</form>
 		</div>
