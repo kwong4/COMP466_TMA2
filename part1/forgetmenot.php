@@ -14,7 +14,6 @@
 	<body>
 
 		<?php
-	        $login_sucessful = false;
 	        $existing_username_error = "";
 	        $existing_email_error = "";
 	        $invalid_login_error = "";
@@ -49,7 +48,6 @@
 				} // end if
 
             	if (mysqli_num_rows($result) == 1) {
-            		$login_sucessful = true;
             		setcookie("logged_in", "true");
             		setcookie("username", $username);
             		header("Location: forgetmenot.php");
@@ -109,7 +107,9 @@
 					  	die(mysql_error());
 					} // end if
 					else {
-						$login_sucessful = true;
+						setcookie("logged_in", "true");
+            			setcookie("username", $reg_username);
+            			header("Location: forgetmenot.php");
 					}
             	}
 	        }
@@ -126,7 +126,7 @@
 	        	print('	<!-- Banner -->
 					<li>Home</li>
 					<li>My Bookmarks</li>
-					<li>Sign Out</li>');
+					<li id = "sign_out">Sign Out</li>');
 	        }
 	        else {
 	        	print('	<!-- Banner -->
@@ -142,7 +142,7 @@
 				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '</h1>');
 			}
 			else {
-				print(" <h1 class = \"title_centre\">Welcome to ForgetMeNot!</h1>");
+				print(" <h1 class = \"title_centre\" id = \"welcome\">Welcome to ForgetMeNot!</h1>");
 			}
 
 			print(' <div class = "main_bookmarks">
