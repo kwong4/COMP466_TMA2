@@ -48,10 +48,11 @@
 				  	die(mysql_error());
 				} // end if
 
-            	mysqli_close($database);
-
             	if (mysqli_num_rows($result) == 1) {
             		$login_sucessful = true;
+            		setcookie("logged_in", "true");
+            		setcookie("username", $username);
+            		header("Location: forgetmenot.php");
             	}
             	else {
             		$login_error = "style = \"display: block;\"";
@@ -63,22 +64,12 @@
 	        	$reg_username = isset($_POST["reg_username"]) ? $_POST["reg_username"] : "";
 		        $reg_email = isset($_POST["reg_email"]) ? $_POST["reg_email"] : "";
 		        $reg_password = isset($_POST["reg_password"]) ? $_POST["reg_password"] : "";
-
+		        $is_error = false;
 
 	        	// build SELECT query
                	$query = "SELECT * " .
                			 "FROM users " .
                			 "WHERE Username = '$reg_username'";
-
-				// Connect to MySQL
-				if (!( $database = mysqli_connect("localhost", "iw3htp", "password"))) {
-				  	die("<p>Could not connect to database</p>");
-				}
-
-                // open Forgetmenot database
-				if (!mysqli_select_db( "Forgetmenot", $database)) {
-					die("<p>Could not open MailingList database</p>");
-				}
              
                 // execute query in Forgetmenot database
 				if (!($result = mysqli_query($database, $query))) {
@@ -89,7 +80,7 @@
 				// build SELECT query
                	$query = "SELECT * " .
                			 "FROM users " .
-               			 "WHERE Username = '$reg_email'";
+               			 "WHERE Email = '$reg_email'";
 
                	// execute query in Forgetmenot database
 				if (!($result2 = mysqli_query($database, $query))) {
@@ -97,17 +88,17 @@
 				  	die(mysql_error());
 				} // end if
 
-            	mysql_close($database);
-
             	if (mysqli_num_rows($result) == 1) {
             		$register_error = "style = \"display: block;\"";
             		$existing_username_error = "* Username already exists";
+            		$is_error = true;
             	}
-            	else if (mysqli_num_rows($result2) == 1) {
+            	if (mysqli_num_rows($result2) == 1) {
             		$register_error = "style = \"display: block;\"";
             		$existing_email_error = "* Email already exists";
+            		$is_error = true;
             	}
-            	else {
+            	if ($is_error == false) {
             		$query = "INSERT INTO users " .
             				 "(Username, Password, Email) " .
                			  	 "VALUES ('$reg_username', '$reg_password', '$reg_email')";
@@ -122,7 +113,7 @@
 					}
             	}
 	        }
-
+	        mysqli_close($database);
 	        print('<!-- Title + Banner -->
 				<ul class = "navigation">
 
@@ -131,7 +122,7 @@
 						ForgetMeNot
 					</div>');
 
-	        if ($login_sucessful == true) {
+	        if (isset($_COOKIE["logged_in"])) {
 	        	print('	<!-- Banner -->
 					<li>Home</li>
 					<li>My Bookmarks</li>
@@ -145,9 +136,16 @@
 
 			print('</ul>
 
-				<div id = "home">
-					<h1 class = "title_centre">Welcome to ForgetMeNot!</h1>
-					<div class = "main_bookmarks">
+				<div id = "home">');
+
+			if (isset($_COOKIE["logged_in"])) {
+				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '</h1>');
+			}
+			else {
+				print(" <h1 class = \"title_centre\">Welcome to ForgetMeNot!</h1>");
+			}
+
+			print(' <div class = "main_bookmarks">
 
 						<h3 class = "title_centre">Top 10 Bookmarks</h3>
 						<ul>
@@ -175,11 +173,11 @@
 						</div>
 
 						<label><strong>Username: </strong></label>');
-	        print("		<label class = \"error\" id = \"error_login\">$invalid_login_error</label>");
-			print('		<input type = "text" class = "info" placeholder = "Enter Username" id = "username" required>
+	        print("		<label class = \"error_it\" id = \"error_login\">$invalid_login_error</label>");
+			print('		<input type = "text" class = "info" placeholder = "Enter Username" name = "username" required>
 						<br>
 						<label><strong>Password: </strong></label>
-						<input type = "password" class = "info" placeholder = "Enter Password" id = "password" required>
+						<input type = "password" class = "info" placeholder = "Enter Password" name = "password" required>
 				        <br>
 						<button class = "action_button" type = "submit" name = "login_submit">Login</button>
 					</div>
@@ -195,17 +193,17 @@
 						</div>
 						<br>
 						<label><strong>Username: </strong></label>');
-			print("		<label class = \"error\" id = \"error_register1\">$existing_username_error</label>");
-			print('		<input type = "text" class = "info" placeholder = "Enter Username" id ="reg_username" required>
+			print("		<label class = \"error_it\" id = \"error_register1\">$existing_username_error</label>");
+			print('		<input type = "text" class = "info" placeholder = "Enter Username" name ="reg_username" required>
 						<br>
 						<br>
 						<label><strong>Email: </strong></label>');
-			print("		<label class = \"error\" id = \"error_register2\">$existing_email_error</label>");
-			print('		<input type = "email" class = "info" placeholder = "Enter Email" id = "reg_email" required>
+			print("		<label class = \"error_it\" id = \"error_register2\">$existing_email_error</label>");
+			print('		<input type = "email" class = "info" placeholder = "Enter Email" name = "reg_email" required>
 						<br>
 						<br>
 						<label><strong>Password: </strong></label>
-						<input type = "password" class = "info" placeholder = "Enter Password" id = "reg_password" required>
+						<input type = "password" class = "info" placeholder = "Enter Password" name = "reg_password" required>
 						<button class = "action_button" type = "submit" name = "register_submit">Register</button>
 					</div>
 				</form>
