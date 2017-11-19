@@ -7,11 +7,18 @@ ID: 3339323
 // Show Login screen
 function show(element) {
 	document.getElementById(element).style.display = "block";
+	hide_errors();
 }
 
 // Hide Login screen
 function hide(element) {
 	document.getElementById(element).style.display = "none";
+}
+
+function hide_errors() {
+	document.getElementById("error_login").style.display = "none";
+	document.getElementById("error_register1").style.display = "none";
+	document.getElementById("error_register2").style.display = "none";
 }
 
 // Initial setup function
@@ -28,12 +35,6 @@ function start() {
 
 	document.getElementById("close_register").addEventListener(
 		"click", function() {hide("register_inputs");}, false);
-
-	document.getElementById('login_inputs').addEventListener("click",
-		function() {this.style.display = "none";}, false);
-
-	document.getElementById('register_inputs').addEventListener("click",
-		function() {this.style.display = "none";}, false);;
 
 }
 
