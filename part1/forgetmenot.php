@@ -25,6 +25,7 @@
 	        $invalid_url_msg = "";
 	        $invalid_url = "";
 	        $invalid_name = "";
+	        $internalErrors = libxml_use_internal_errors(true);
 
 	        // Connect to MySQL
 			if (!($database = mysqli_connect("localhost", "iw3htp", "password"))) {
@@ -203,7 +204,7 @@
 			// build SELECT query
            	$query = "SELECT Url " .
            			 "FROM bookmarks " .
-           			 "GROUP BY Url, Name " .
+           			 "GROUP BY Url " .
            			 "ORDER BY COUNT(Url) DESC " .
            			 "LIMIT 10";
 							
@@ -226,12 +227,16 @@
 
             while ($row = mysqli_fetch_row($result)) {
 
-            	$str = file_get_contents($row[0]);
-            	if(strlen($str) > 0) {
-			    	$str = trim(preg_replace('/\s+/', ' ', $str));
-			    	preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title);
+            	$doc = new DOMDocument();
+
+            	if($doc->loadHTMLFile($row[0])) {
+				    $list = $doc->getElementsByTagName("title");
+				    if ($list->length > 0) {
+				        $title = $list->item(0)->textContent;
+				    }
 				}
-               	print("<li><a href = \"$row[0]\">$title[1]</a></li>");
+
+               	print("<li><a href = \"$row[0]\">$title</a></li>");
 
             } // end while
 
@@ -347,6 +352,7 @@
 				</form>
 			</div>');
 			mysqli_close($database);
+			libxml_use_internal_errors($internalErrors);
 		?>
 
 	</body>

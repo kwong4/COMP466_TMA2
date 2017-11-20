@@ -17,6 +17,6 @@ CREATE TABLE bookmarks
 	Username VARCHAR(50),
 	Name VARCHAR(100),
 	Url VARCHAR(200),
-	PRIMARY KEY (Username, Url),
+	PRIMARY KEY (Username, Name),
 	FOREIGN KEY (Username) REFERENCES users(Username)
 );

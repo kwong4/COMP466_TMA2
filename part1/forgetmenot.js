@@ -47,8 +47,10 @@ function sign_out() {
 }
 
 function edit(count) {
-	document.getElementById("bookmark_name").value = document.getElementById("item_" + count).innerHTML;
-	document.getElementById("url_address").value = document.getElementById("item_" + count).href;
+	var id = count.substring(8, count.length);
+	id = parseInt(id);
+	document.getElementById("bookmark_name").value = document.getElementById("item_" + id).innerHTML;
+	document.getElementById("url_address").value = document.getElementById("item_" + id).href;
 }
 
 // Initial setup function
@@ -98,7 +100,7 @@ function start() {
 
 	while (document.getElementById("edit_it_" + counter) !== null) {
 		document.getElementById("edit_it_" + counter).addEventListener(
-		"click", function() {edit(counter);}, false);
+		"click", function() {edit(this.id);}, false);
 
 		counter += 1;
 	}
