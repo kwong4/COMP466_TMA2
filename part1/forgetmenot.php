@@ -14,11 +14,17 @@
 	<body>
 
 		<?php
+
 	        $existing_username_error = "";
 	        $existing_email_error = "";
 	        $invalid_login_error = "";
 	        $login_error = "";
 	        $register_error = "";
+	        $my_bookmark_page = "";
+	        $my_home_page = "";
+	        $invalid_url_msg = "";
+	        $invalid_url = "";
+	        $invalid_name = "";
 
 	        // Connect to MySQL
 			if (!($database = mysqli_connect("localhost", "iw3htp", "password"))) {
@@ -44,7 +50,7 @@
                 // execute query in Forgetmenot database
 				if (!($result = mysqli_query($database, $query))) {
 				  	print("<p>Could not execute query!</p>");
-				  	die(mysql_error());
+				  	die(mysqli_error($database));
 				} // end if
 
             	if (mysqli_num_rows($result) == 1) {
@@ -72,7 +78,7 @@
                 // execute query in Forgetmenot database
 				if (!($result = mysqli_query($database, $query))) {
 					print("<p>Could not execute query!</p>");
-					die(mysql_error());
+					die(mysqli_error($database));
 				} // end if
 
 				// build SELECT query
@@ -83,7 +89,7 @@
                	// execute query in Forgetmenot database
 				if (!($result2 = mysqli_query($database, $query))) {
 				  	print("<p>Could not execute query!</p>");
-				  	die(mysql_error());
+				  	die(mysqli_error($database));
 				} // end if
 
             	if (mysqli_num_rows($result) == 1) {
@@ -97,6 +103,7 @@
             		$is_error = true;
             	}
             	if ($is_error == false) {
+
             		$query = "INSERT INTO users " .
             				 "(Username, Password, Email) " .
                			  	 "VALUES ('$reg_username', '$reg_password', '$reg_email')";
@@ -104,7 +111,7 @@
                		// execute query in Forgetmenot database
 					if (!($result = mysqli_query($database, $query))) {
 					  	print("<p>Could not execute query!</p>");
-					  	die(mysql_error());
+					  	die(mysqli_error($database));
 					} // end if
 					else {
 						setcookie("logged_in", "true");
@@ -113,7 +120,55 @@
 					}
             	}
 	        }
-	        mysqli_close($database);
+			else if (isset($_POST["add_bookmark"])) {
+	        	$my_bookmark_page = "style = \"display: block;\"";
+	        	$my_home_page = "style = \"display: none;\"";
+
+	        	$bookmark = isset($_POST["bookmark"]) ? $_POST["bookmark"] : "";
+		        $url = isset($_POST["url"]) ? $_POST["url"] : "";
+		        $username = $_COOKIE["username"];
+
+	            if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+	            	$invalid_url = $url;
+	            	$invalid_url_msg = "* Invalid URL";
+	            	$invalid_name = $bookmark;
+	            }
+	            else {
+	            	// build SELECT query
+	               	$query = "INSERT INTO bookmarks " .
+	               			 "(Username, Name, Url) " .
+	               			 "VALUES ('$username', '$bookmark', '$url') " . 
+	               			 "ON DUPLICATE KEY UPDATE Url = VALUES(Url)";
+
+	               	// execute query in Forgetmenot database
+					if (!($result = mysqli_query($database, $query))) {
+					  	print("<p>Could not execute query!</p>");
+					  	die(mysqli_error($database));
+					} // end if
+	            }
+	        }
+	        else if (isset($_POST["delete_bookmark"])) {
+	        	$my_bookmark_page = "style = \"display: block;\"";
+	        	$my_home_page = "style = \"display: none;\"";
+
+	        	$url_name = isset($_POST["url_name"]) ? $_POST["url_name"] : "";
+		        $url_link = isset($_POST["url_link"]) ? $_POST["url_link"] : "";
+		        $username = $_COOKIE["username"];
+
+		        // build SELECT query
+               	$query = "DELETE FROM bookmarks " .
+               			 "WHERE " .
+               			 "Username = '$username' AND " .
+               			 "Name = '$url_name' AND " . 
+               			 "URL = '$url_link'";
+
+               	// execute query in Forgetmenot database
+				if (!($result = mysqli_query($database, $query))) {
+				  	print("<p>Could not execute query!</p>");
+				  	die(mysqli_error($database));
+				} // end if
+	        }
+	        
 	        print('<!-- Title + Banner -->
 				<ul class = "navigation">
 
@@ -124,8 +179,8 @@
 
 	        if (isset($_COOKIE["logged_in"])) {
 	        	print('	<!-- Banner -->
-					<li>Home</li>
-					<li>My Bookmarks</li>
+					<li id = "home">Home</li>
+					<li id = "my_bookmarks">My Bookmarks</li>
 					<li id = "sign_out">Sign Out</li>');
 	        }
 	        else {
@@ -134,35 +189,118 @@
 					<li id = "register_prompt">Register</li>');
 	        }
 
-			print('</ul>
+			print("</ul>
 
-				<div id = "home">');
+				<div id = \"home_content\" $my_home_page>");
 
 			if (isset($_COOKIE["logged_in"])) {
-				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '</h1>');
+				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '!</h1>');
 			}
 			else {
 				print(" <h1 class = \"title_centre\" id = \"welcome\">Welcome to ForgetMeNot!</h1>");
 			}
+							
+			// build SELECT query
+           	$query = "SELECT Url " .
+           			 "FROM bookmarks " .
+           			 "GROUP BY Url, Name " .
+           			 "ORDER BY COUNT(Url) DESC " .
+           			 "LIMIT 10";
+							
+           	// execute query in Forgetmenot database
+			if (!($result = mysqli_query($database, $query))) {
+				print("<p>Could not execute query!</p>");
+				die(mysqli_error($database));
+			} // end if
 
-			print(' <div class = "main_bookmarks">
+			print('<div class = "main_bookmarks">');
 
-						<h3 class = "title_centre">Top 10 Bookmarks</h3>
-						<ul>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-							<li>Test</li>
-						</ul>
+			if (mysqli_num_rows($result) == 0) {
+				print('	<h3 class = "title_centre">No Bookmarks on the site yet. Be the first!</h3>
+						<ol>');
+			}
+			else {
+				print('	<h3 class = "title_centre">Top 10 Bookmarks</h3>
+						<ol>');
+			}
+
+            while ($row = mysqli_fetch_row($result)) {
+
+            	$str = file_get_contents($row[0]);
+            	if(strlen($str) > 0) {
+			    	$str = trim(preg_replace('/\s+/', ' ', $str));
+			    	preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title);
+				}
+               	print("<li><a href = \"$row[0]\">$title[1]</a></li>");
+
+            } // end while
+
+			print('		</ol>
 					</div>
-				</div>
-	        	');
+				</div>');
+
+			print("<div id = \"mybookmark_content\" class = \"hidden\" $my_bookmark_page>");
+
+			print('<div class = "my_bookmarks">
+				<h1 class = "title_centre">Your BookMarks!</h1>');
+
+			// build SELECT query
+           	$query = "SELECT Name, Url " .
+           			 "FROM bookmarks " .
+           			 "WHERE Username = '" . $_COOKIE["username"] . "'";
+
+           	// execute query in Forgetmenot database
+			if (!($result = mysqli_query($database, $query))) {
+				print("<p>Could not execute query!</p>");
+				die(mysqli_error($database));
+			} // end if
+
+			if (mysqli_num_rows($result) == 0) {
+				print('	<h3 class = "title_centre">No Bookmarks added yet.</h3>
+						<ul>');
+			}
+			else {
+				print('	<h3 class = "title_centre">Bookmarks</h3>
+						<ul>');
+			}
+
+			$counter = 0;
+			// fetch each record in result set
+            while ($row = mysqli_fetch_row($result)) {
+
+               print("<li><a id = item_$counter href = \"$row[1]\">$row[0]</a>
+               		  <label>
+               		  <button id = \"edit_it_$counter\">Edit</button>
+               		  <form class = \"one_line\"method = \"post\" action = forgetmenot.php>
+               		  <input type = \"text\" class = \"hidden\" name = \"url_name\" value = \"$row[0]\"></input>
+               		  <input type = \"text\" class = \"hidden\" name = \"url_link\" value = \"$row[1]\"></input>
+               		  <button type = \"submit\" name = \"delete_bookmark\">Delete</button></form>
+               		  </label>
+               	</li>");
+
+               $counter += 1;
+
+            } // end while
+
+			print('</ul>
+				</div>');
+
+			print("<div class = \"my_input\">");
+			print('	<form class = "modal-my-content" method = "post" action = "forgetmenot.php">
+						<label><strong>Bookmark Name: </strong></label>
+						<br>');
+			print("			<input type = \"text\" class = \"my_info\" placeholder = \"Enter Bookmark Name\" name = \"bookmark\" id = \"bookmark_name\" value = \"$invalid_name\" required>");
+			print('		<br>
+						<label><strong>Url: </strong></label>');
+			print("		<label class = \"error_it\" id = \"error_url\">$invalid_url_msg</label>");
+			print('		<br>');
+			print("		<input type = \"url\" class = \"my_info\" placeholder = \"Enter Url\" name = \"url\" id = \"url_address\" value = \"$invalid_url\" required>");
+			print('     <br>
+						<button class = "action_button" type = "submit" name = "add_bookmark">Add/Modify Bookmark</button>
+					</form>
+				</div>');
+
+			print('</div>');
 
 	        print("<div class = \"modal\" id = \"login_inputs\" $login_error>");
 	        print('
@@ -208,7 +346,7 @@
 					</div>
 				</form>
 			</div>');
-
+			mysqli_close($database);
 		?>
 
 	</body>
