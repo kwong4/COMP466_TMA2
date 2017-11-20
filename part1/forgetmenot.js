@@ -4,12 +4,6 @@ Name: Kevin Wong
 ID: 3339323								
 */
 
-function setCookie(cname, cvalue, exdays) {
-    
-    var expires = "expires = " + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
 // Show Login screen
 function show_prompts(element) {
 	document.getElementById(element).style.display = "block";

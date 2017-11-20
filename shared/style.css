@@ -11,17 +11,62 @@ body {
 	background-size: 100% auto;
 }
 
+body.learn_city { 
+    font-family: arial, helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: none;
+}
+
+.learncity_title {
+    color: #ffffff;
+    text-shadow: -2px 0 #000000, 0 2px #000000, 2px 0 #000000, 0 -2px #000000;
+    float: left;
+    font-size: 4ex;
+    font-weight: bold;
+    padding-left: 2ex;
+}
+
+.banner {
+    width: 100%;
+    display: block;
+    padding: 3ex 0 0 0;
+}
+
+.banner_image {
+    width: 100%;
+    display: block;
+}
+
+.login_nav {
+    color: #ffffff;
+    list-style: none;
+    text-align: right;
+    text-shadow: -1px 0 #A0522D, 0 3px #A0522D, 1px 0 #A0522D, 0 -1px #A0522D
+}
+
+.login_nav > li {
+    display: inline-block;
+    padding: 0 3ex 0 3ex;
+    font-size: 3ex;
+}
+
+.login_nav > li:hover {
+    color: #000000;
+    text-shadow: none;
+}
+
 .navigation {
 	color: #ffffff;
 	list-style: none;
 	text-align: right;
-	padding: 3ex 0 3ex 0;
+	padding: 3ex 0 1ex 0;
 	text-shadow: -3px 0 #000000, 0 3px #000000, 1px 0 #000000, 0 -1px #000000
 }
 
 .navigation > li {
 	display: inline-block;
-	padding: 0 3ex 0 3ex;
+	padding: 0 3ex 0 1ex;
 	font-size: 5ex;
 }
 

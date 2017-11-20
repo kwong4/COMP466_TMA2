@@ -1,0 +1,75 @@
+<?xml version = "1.0"?>
+
+<unit>
+	<title>Unit 2: Client side Scripting in JavaScript</title>
+	<section>
+		<sectiontitle>What is JavaScript?</sectiontitle>
+		<paragraph>JavaScript is a cross-platform object-oriented scripting language that is used to enhance the functionality and appearance of web pages. Similar to CSS documents, you are able to embed them into the HTML5 document itself or as an external file. To embed a document into a HTML5 document, you define it as &#60;script type = "text&#47;javascript" &#62;&#60;&#47;script&#62; within the head of the HTML5 document. Otherwise you are able to define an external JavaScript file as &#60;script src = "test.js" &#62;&#60;&#47;script&#62; within the head of the HTML5 document. JavaScript is extremely important and useful to add a dynamic component to your web applications. One important thing to note that JavaScript is referred to as a loosely typed language, which means that JavaScript does not have specific type definitions.
+		</paragraph>
+	</section>
+	<section>
+		<sectiontitle>Comments, document and window object</sectiontitle>
+		<paragraph>As we have mentioned, JavaScript is an object-oriented language. Two important global objects available to us in JavaScript is the document and the window object. The document object represents the HTML5 document that the browser is currently displaying. This is very useful to you because the document object has important writing methods. These methods are write and writeln - if you have had any experience with other object-orientated languages, this may be familar to you. If not, these functions both accept a string argument and writes it to the HTML5 document. However, the difference between write and writeln is that writeln puts a new line at the end of your string when it writes it to the HTML5 document. With the use of this, you are able to even write html code such as document.writeln("&#60;h1&#62;Welcome to JavaScript Programming!&#60;&#47;h1&#62;");
+		</paragraph>
+		<paragraph>The window object represents an open window in a browser. The windows object is important for displaying and retrieving information from the user. This can be done with the alert and prompt method respectively. The alert method accepts a string and displays it to the user in a dialog box that pops up. This dialog box requires the user to note that it has recieved the alert with a mouse click on the "OK" button or by hitting Enter when the button is focused. The prompt method, similar to the alert method also accepts a string which is displayed to the user in a dialog box. However this time the dialog box has an input textfield with an "OK" and "Cancel" button. The return value of this method is a string.
+		</paragraph>
+		<paragraph>JavaScript defines a single lined comment with a preceding &#47;&#47;. Comments are important to define what certain portions of code are doing, as well as possibly type reminders since JavaScript is a loosely typed language. Multiline comments are defined as a preceding &#47;* start tag, and a post end tag of *&#47;. Multiline comments are useful for paragraphs and isolating code for testing and design purposes.
+		</paragraph>
+	</section>
+	<section>
+		<sectiontitle>Document Object Model</sectiontitle>
+		<paragraph>The Document Object Model or commonly referred to as DOM is the object hierarchy which gives you scripting access to all elements on a web page. This is extremely useful in dynamically creating, modifying, and removing elements in a page. How you can think of DOM is essentially a tree-structure. In an HTML document, you are able to nest elements within other elements. For example when you create a body element you define other elements such as h1 or p within it. These elements can be referred to as a child node of the body element. Similarly a parent node is the node that contains the current node. For example the parent node of an h1 element contained within an body element is the body node. The root node (or the html node) is the top of the tree and is referred to as the root node because it does not have any parents.
+		</paragraph>
+		<paragraph>So now that we have a general outline of the structure, how do we go about modifying these elements with JavaScript? Each element in an HTML5 page has an attribute referred to as id. Each id attribute must be unique and is often define in an incrementing order. With these ids, you are able to find the node within JavaScript from these node ids. To obtain a node object in JavaScript you are able to use the statement var currentNode = document.getElementById(id); where the id is the id defined in the HTML5 document. After obtaining the node in javaScript you have access to its methods and attributes. For example, by calling the .value attribute of this node, you are able to obtain the content of the element. Similarly there are many different functions such as setAttribute and getAttribute which you can use to modify or obtain specific information about a certain node.
+		</paragraph>
+		<paragraph>Now the important step of knowing the hierarchy comes into play. Nodes have functions such as createNewNode which you are able to create new node objects. But how do we insert them into the HTML5 document? To do this you can use different insert methods available to the nodes such as insertBefore or appendChild. The insertBefore method takes in two node objects. The first argument is the node to insert, while the second argument is the child node in which to insert before. The appendChild function only takes in one argument (node) and just appends it as a child of the calling node. There are many other attributes and functions such as the parentNode attribute which returns the parent of the calling node which are important in the Document Object Model.
+		</paragraph>
+	</section>
+	<section>
+		<sectiontitle>Event Handlers</sectiontitle>
+		<paragraph>An important functionality of JavaScript is the ability for to produce a dynamic webpage. To do this, Event Handlers are defined to handle the different actions of the user. This can create a great user experience and can act to direct users towards specific actions without reloading the webpage. To add event handlers you use the method addEventListener. This method accepts 3 arguments - the first argument is the event for which we're registering a handler (string). The second argument is the function that will be called to handle the event. The 3rd argument is typically false (the true value is beyond the scope of this tutorial). This method can be called for any DOM node. For example the window object or perhaps a paragraph node. A similar - yet contrasting method is the removeEventListener which accepts the same arguments are the addEventListener but - as the name suggests removes an event handler.
+		</paragraph>
+		<paragraph>We will be getting into some of the events that you can register for. The first event, which is commonly used on the window object is the load event. This event is handled only after the object is finished loading. This the case of the window object, the will only be handled after the full HTML5 page is fully loaded. This is extremely important for JavaScript coding as JavaScript must work in chronological order of loaded elements. For example, if you tried to use specific object methods without a fully loaded object, it will not run. JavaScript isn't designed so that it will wait if the object in question is not fully loaded yet. This makes making object initialization safer when it is put in one location after the HTML5 page has loaded.
+		</paragraph>
+		<paragraph>Other important events are the mousemove, mouseover, and mouseout events. The mousemove event fire whenever the user moves the mouse. This is important for any JavaScript program that relies on keeping the dynamic location of the mouse at all times. For example, creating a cannon game in a HTML5 page. The mouseover and mouseout events fire whenever the mouse enters and leaves the element respectively. This is definitely helpful if you have an image or text that you wish to change whenever the user hovers or leaves the element. For example this could be used to create a image that does fancy transformations when the user moves their mouse over certain elements.
+		</paragraph>
+	</section>
+</unit>
+
+<quiz>
+	<question>
+		<inquiry>Which of the following is a correct statement about JavaScript?</inquiry>
+		<answer correct = "">JavaScript is a single-platform object-orientated scripting language used to enhance the functionality and appearance of web pages</answer>
+		<answer correct = "">JavaScript can be embedded into a HTML5 within the body of the HTML5 document</answer>
+		<answer correct = "*">JavaScript is referred to as a loosely typed language</answer>
+		<answer correct = "">JavaScript can be defined with an inline-style, embedded, and as an external file</answer>
+	</question>
+	<question>
+		<inquiry>Which of the following is correct?</inquiry>
+		<answer correct = "*">The document object refers to the current HTML5 document that the browser is currently displaying</answer>
+		<answer correct = "">The window object refers to the current HTML5 document that the browser is currently displaying</answer>
+		<answer correct = "">The document object has a altert and prompt method</answer>
+		<answer correct = "">The window object does not have access to the write method, but it does have access to the writeln method</answer>
+	</question>
+	<question>
+		<inquiry>What is false about the Document Object Model?</inquiry>
+		<answer correct = "">The Document Object Model can be described as a tree-structure</answer>
+		<answer correct = "*">The root node is known to be at the bottom of the tree</answer>
+		<answer correct = "">Elements from HTML5 can be found using their unique id in JavaScript</answer>
+		<answer correct = "">The Document Object Model gives you scripting access to all elements on a web page</answer>
+	</question>
+	<question>
+		<inquiry>What is the correct definition for the first 2 arguments in addEventListener</inquiry>
+		<answer correct = "">function, event</answer>
+		<answer correct = "*">event, function</answer>
+		<answer correct = "">load, event</answer>
+		<answer correct = "">start, function</answer>
+	</question>
+	<question>
+		<inquiry>Which of the following are not mouse events</inquiry>
+		<answer correct = "">mousemove</answer>
+		<answer correct = "*">mouseunder</answer>
+		<answer correct = "">mouseover</answer>
+		<answer correct = "">mouseout</answer>
+	</question>
+</quiz>
