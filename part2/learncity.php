@@ -20,6 +20,9 @@
 	        $invalid_login_error = "";
 	        $login_error = "";
 	        $register_error = "";
+	        $my_home_page = "";
+	        $course_page = "";
+	        $my_course_page = "";
 
 	        // Connect to MySQL
 			if (!($database = mysqli_connect("localhost", "iw3htp", "password"))) {
@@ -70,7 +73,7 @@
                			 "FROM users " .
                			 "WHERE Username = '$reg_username'";
              
-                // execute query in Forgetmenot database
+                // execute query in Learn_City database
 				if (!($result = mysqli_query($database, $query))) {
 					print("<p>Could not execute query!</p>");
 					die(mysqli_error($database));
@@ -81,7 +84,7 @@
                			 "FROM users " .
                			 "WHERE Email = '$reg_email'";
 
-               	// execute query in Forgetmenot database
+               	// execute query in Learn_City database
 				if (!($result2 = mysqli_query($database, $query))) {
 				  	print("<p>Could not execute query!</p>");
 				  	die(mysqli_error($database));
@@ -103,7 +106,7 @@
             				 "(Username, Password, Email) " .
                			  	 "VALUES ('$reg_username', '$reg_password', '$reg_email')";
 
-               		// execute query in Forgetmenot database
+               		// execute query in Learn_City database
 					if (!($result = mysqli_query($database, $query))) {
 					  	print("<p>Could not execute query!</p>");
 					  	die(mysqli_error($database));
@@ -128,8 +131,8 @@
 	        	print('<!-- Banner -->
 					<li id = "home">Home</li>
 					<li id = "courses">Courses</li>
-					<li id = "add_course">Add Courses</li>
-					<li id = "edit_course">Edit Course</li>
+					<li id = "my_courses">My Courses</li>
+					<li id = "faq">FAQ</li>
 				</ul>
 
 				<!-- Login Banner -->
@@ -141,6 +144,7 @@
 	        	print('<!-- Banner -->
 					<li id = "home">Home</li>
 					<li id = "courses">Courses</li>
+					<li id = "faq">FAQ</li>
 				</ul>
 
 				<!-- Login Banner -->
@@ -154,6 +158,109 @@
 			<div class = "banner">
 				<img class = "banner_image" src = "../shared/learncity_background.jpg">
 			</div>');
+
+	        // Home
+			//-----------------------------------------------------------------------------------
+
+	        print("<div id = \"home_content\" $my_home_page>");
+
+	        if (isset($_COOKIE["logged_in"])) {
+				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '!</h1>');
+			}
+			else {
+				print(" <h1 class = \"title_centre\" id = \"welcome\">Welcome to Learn City!</h1>");
+			}
+
+			print('<p>Here at Learn City, we try to provide a platform for students and teachers all around!</p>
+				<p>Please feel free to take any of the courses listed under the "Courses" tab</p>
+				<p>If you have any courses you would like to post on our site, follow a guide under the "FAQ" tab</p>
+				</div>');
+
+			// Courses
+			//-----------------------------------------------------------------------------------
+
+			print("<div id = \"course_content\" class = \"hidden\" $course_page>");
+
+			// build SELECT query
+           	$query = "SELECT Name, CourseId " .
+           			 "FROM Courses ";
+							
+           	// execute query in Learn_City database
+			if (!($result = mysqli_query($database, $query))) {
+				print("<p>Could not execute query!</p>");
+				die(mysqli_error($database));
+			} // end if
+
+			if (mysqli_num_rows($result) == 0) {
+				print('	<h3 class = "title_centre">No Courses on the site yet. Be the first!</h3>
+						<ol>');
+			}
+			else {
+				print('	<h3 class = "title_centre">Courses</h3>
+						<ol>');
+			}
+
+
+			$counter = 0;
+			while ($row = mysqli_fetch_row($result)) {
+
+               	print("<li id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</li>");
+
+               	$counter += 1;
+
+            } // end while
+
+			print('</ol>');
+
+			print('</div>');
+
+			// My Courses
+			//-----------------------------------------------------------------------------------
+
+			print("<div id = \"my_course_content\" class = \"hidden\" $my_course_page>");
+
+			// build SELECT query
+           	$query = "SELECT Name, CourseId " .
+           			 "FROM Courses " . 
+           			 "WHERE Username = '" . $_COOKIE["username"] . "'";
+							
+           	// execute query in Learn_City database
+			if (!($result = mysqli_query($database, $query))) {
+				print("<p>Could not execute query!</p>");
+				die(mysqli_error($database));
+			} // end if
+
+			if (mysqli_num_rows($result) == 0) {
+				print('	<h3 class = "title_centre">No Courses added yet.</h3>
+						<ol>');
+			}
+			else {
+				print('	<h3 class = "title_centre">Courses</h3>
+						<ol>');
+			}
+
+
+			$counter = 0;
+			while ($row = mysqli_fetch_row($result)) {
+
+               	print("<li id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</li>");
+
+               	$counter += 1;
+
+            } // end while
+
+			print('</ol>');
+
+			print('</div>');
+
+
+			// FAQ
+			//-----------------------------------------------------------------------------------
+
+			print("<div id = \"faq_content\" class = \"hidden\">
+					<h2>Welcome to the FAQ page!</h2>
+					<p>Instructions...</p>
+				</div>");
 
 			print("<div class = \"modal\" id = \"login_inputs\" $login_error>");
 	        print('

@@ -4,6 +4,23 @@ Name: Kevin Wong
 ID: 3339323								
 */
 
+// Show content
+function show_content(element) {
+	hide_content();
+	document.getElementById(element).style.display = "block";
+}
+
+// Hide content
+function hide_content() {
+	document.getElementById("home_content").style.display = "none";
+	document.getElementById("course_content").style.display = "none";
+	document.getElementById("faq_content").style.display = "none";
+
+	if (document.getElementById("my_course_content") !== null) {
+		document.getElementById("my_course_content").style.display = "none";
+	}
+}
+
 // Show Login screen
 function show_prompts(element) {
 	document.getElementById(element).style.display = "block";
@@ -48,6 +65,26 @@ function start() {
 	if (document.getElementById("sign_out") !== null) {
 		document.getElementById("sign_out").addEventListener(
 		"click", sign_out, false);
+	}
+
+	if (document.getElementById("home") !== null) {
+		document.getElementById("home").addEventListener(
+		"click", function() {show_content("home_content");}, false);
+	}
+
+	if (document.getElementById("courses") !== null) {
+		document.getElementById("courses").addEventListener(
+		"click", function() {show_content("course_content");}, false);
+	}
+
+	if (document.getElementById("my_courses") !== null) {
+		document.getElementById("my_courses").addEventListener(
+		"click", function() {show_content("my_course_content");}, false);
+	}
+
+	if (document.getElementById("faq") !== null) {
+		document.getElementById("faq").addEventListener(
+		"click", function() {show_content("faq_content");}, false);
 	}
 
 }
