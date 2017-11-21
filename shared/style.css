@@ -239,3 +239,22 @@ body.learn_city {
 .one_line {
     display:inline-block;
 }
+
+.box_curr_course {
+    border-color: #000000;
+    border-width: 1ex;
+    border-style: solid;
+    display: inline-block;
+    margin: 1ex 5ex 1ex 5ex;
+    padding: 3ex;
+}
+
+.add_course {
+    background-color: #ffffff;
+    margin-left: 35ex;
+    border-width: 1ex;
+    border-color: #000000;
+    color: #000000;
+    list-style: none;
+    text-align: center;
+}

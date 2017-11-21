@@ -118,6 +118,13 @@
 					}
             	}
 	        }
+	        else if (isset($_POST["add_course"])) {
+	        	$my_home_page = "style = \"display: none;\"";
+	        	$course_page = "style = \"display: none;\"";
+	        	$my_course_page = "style = \"display: block;\"";
+
+	        	//Upload and parse XML
+	        }
 
 	        print('<!-- Title + Banner -->
 			<ul class = "navigation">
@@ -223,7 +230,7 @@
            	$query = "SELECT Name, CourseId " .
            			 "FROM Courses " . 
            			 "WHERE Username = '" . $_COOKIE["username"] . "'";
-							
+
            	// execute query in Learn_City database
 			if (!($result = mysqli_query($database, $query))) {
 				print("<p>Could not execute query!</p>");
@@ -231,32 +238,34 @@
 			} // end if
 
 			if (mysqli_num_rows($result) == 0) {
-				print('	<h3 class = "title_centre">No Courses added yet.</h3>
-						<ol>');
+				print('	<h2 class = "title_centre">No Courses added yet.</h3>');
 			}
 			else {
-				print('	<h3 class = "title_centre">Courses</h3>
-						<ol>');
+				print('	<h2 class = "title_centre">Courses</h3>');
 			}
 
+			print("<div class = \"box_curr_course\">");
 
 			$counter = 0;
 			while ($row = mysqli_fetch_row($result)) {
 
-               	print("<li id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</li>");
+               	print("<div class = \"box_curr_course\">
+               			<label id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</label>
+               		   </div>");
 
                	$counter += 1;
 
             } // end while
 
-			print('</ol>');
+            print("<form method = \"post\" action = learncity.php>
+            	<button class = \"add_course\" type = \"button\" name = \"add_course\">Add Course</button>
+            	</form>");
 
-			print('</div>');
-
+			print('</div>
+				</div>');
 
 			// FAQ
 			//-----------------------------------------------------------------------------------
-
 			print("<div id = \"faq_content\" class = \"hidden\">
 					<h2>Welcome to the FAQ page!</h2>
 					<p>Instructions...</p>
