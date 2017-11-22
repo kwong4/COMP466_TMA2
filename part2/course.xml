@@ -1,0 +1,229 @@
+<?xml version = "1.0"?>
+
+<course name = "A Simple Introductory Web Course">
+	<units>
+		<unit>
+			<title>Web, HTML5, and CSS</title>
+			<section>
+				<sectiontitle>What is HTML5?</sectiontitle>
+				<paragraph>HTML5 is a markup language that specifies the structure and content of documents that are displayed in web browsers. It is often coded in basic text-editors. HTML5 have 2 main components within its inital html element called head and body. In HTML5 documents, elements are delimited with a start and end tag. For example &#60;html&#62;&#60;&#47;html&#62; defines an html tag. The element is defined by its name (html) within less than and greater than signs. The end delimiter can be noted with a slash in front of the ending element (but still within the signs). Between the start and end tags, you are able to put content. Depending on the element tag, HTML interprets with it differently.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Basic Elements of HTML</sectiontitle>
+				<paragraph>There are many different kinds of elements in html. We will be only going through some of them as there are too many to cover. First off there is the Paragraph Element denoted as &#60;p&#62;&#60;&#47;p&#62;. This element, like many elements in HTML5 are often predictable in purpose from its name. The Paragraph element forms a paragraph which places extra space above and below it. 
+				</paragraph>
+				<paragraph>The next element is the anchor element denoted as &#60;a href=""&#62;&#60;&#47;a&#62;. This element defines a hyperlink, and uses an attribute called href defined in its start tag as the destination of the hyperlink. The text inbetween the start and end tags are the visible content that is clickable to the user.
+				</paragraph>
+				<paragraph>The next element is the image element denoted as &#60;img src=""&#62;. This element defines a image and uses an attributed (like the anchor element) called src to denote the source of the image. However this element does not need an end tag like the others because it simply does not have a need for it as it pulls its content from the attributes. Another attribute to note of this element is the alt attribute which defines an alternate image if the source (src) is unable to be loaded.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Lists and Tables</sectiontitle>
+				<paragraph>There are two main types of lists in HTML5. There are ordered lists denoted as &#60;ol&#62;&#60;&#47;ol&#62; and there are unordered lists denoted as &#60;ul&#62;&#60;&#47;ul&#62;. The difference is that ordered lists will represent an increasing or decreasing manner of each marked list item. However, unordered lists just represent their list items as undefined points (ex. bullets or dashes). In either case the content of each list requires another element called list item denoted as &#60;li&#62;&#60;&#47;li&#62;. List items define the points for each list, and their content define what text each point will respresent.
+				</paragraph>
+				<paragraph>Tables are one of the original ways to represent data. In HTML5, a table is denoted as &#60;table&#62;&#60;&#47;table&#62; and has 3 distinct sections called head, body, and foot. The head section denoted as &#60;thead&#62;&#60;&#47;thead&#62; defines header column information. The body section denoted as &#60;tbody&#62;&#60;&#47;tbody&#62; defines the primary data of the table. Finally the foot section denoted as &#60;tfoot&#62;&#60;&#47;tfoot&#62; defines the footer of the table.
+				</paragraph>
+				<paragraph>Each of the main 3 sections use &#60;tr&#62;&#60;&#47;tr&#62; to define a row, which must be between the start and end tags of each section. Furthermore, for each row columns can be define in a similar fashion (between tags). However, the thead and the tfoot both use &#60;th&#62;&#60;&#47;th&#62; to define columns (called header columns) while the tbody uses &#60;td&#62;&#60;&#47;td&#62; to define column data.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Attributes, Styles, and CSS</sectiontitle>
+				<paragraph>As we briefly mentioned earlier, elements in HTML5 can carry attributes in their elements. Attributes are very useful in defining how HTML5 handles presents and manages certain elements. One important attribute is the style attribute, which further more defines style-attributes. Elements that have a common purpose (such as displaying text) will have common style-attributes such as font-weight, font-family, and font-size. Other elements that do not display text will not have these style-attributes, so it's worth while for you to lookup if a element has an specific attribute if you are unsure.
+				</paragraph>
+				<paragraph>Now the act of defining style elements within the start tag as an attribute is defined as an inline style. This is often not a common practice unless the application is small or is used for practice. The reason is because by defining each element individually, you cause a dependency on the element itself. This makes making changes, maintenance, and designing a huge burden for future uses. An alternative for this is the popular CSS (Cascading Style Sheet). This lets you define what styles different elements and classes have. There are two different ways to include a CSS with a HTML5 document. The first is called embedded style sheets in which you embed a CSS document in the HTML5 document's head section. The second is called a external style sheet which define a CSS document in a seperate file (with the extension .css) and is linked to the initial HTML5 document.
+				</paragraph>
+				<paragraph>We will first look at the guts (main content) of a CSS document. In a CSS document, you are able to define elements such as body {font-family: arial, helvetica, sans-serif;} which define the body element of the HTML5 document to have a font-family of arial. If arial if unavailable, it will cascade down the order until one is available. This makes putting a common font-family at the end important. In CSS documents, you can define element classes such as p.important {font-weight: bold}, which only applies to p elements that have the class attribute important. In embedded style sheets, the definition of a CSS document is enclosed in the &#60;style type = "text/css"&#62;&#60;&#47;style&#62; tags within the head element of an HTML5 document. Whereas a external style sheet is defined with just the guts in the external file, but is linked with the use of &#60;link rel = "stylesheet" type = "text&#47;css" href= "styles.css"&#62; in the head of an HTML5 document where the href is the location of the CSS file.
+				</paragraph>
+			</section>
+		</unit>
+
+		<unit>
+			<title>Client side Scripting in JavaScript</title>
+			<section>
+				<sectiontitle>What is JavaScript?</sectiontitle>
+				<paragraph>JavaScript is a cross-platform object-oriented scripting language that is used to enhance the functionality and appearance of web pages. Similar to CSS documents, you are able to embed them into the HTML5 document itself or as an external file. To embed a document into a HTML5 document, you define it as &#60;script type = "text&#47;javascript" &#62;&#60;&#47;script&#62; within the head of the HTML5 document. Otherwise you are able to define an external JavaScript file as &#60;script src = "test.js" &#62;&#60;&#47;script&#62; within the head of the HTML5 document. JavaScript is extremely important and useful to add a dynamic component to your web applications. One important thing to note that JavaScript is referred to as a loosely typed language, which means that JavaScript does not have specific type definitions.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Comments, document and window object</sectiontitle>
+				<paragraph>As we have mentioned, JavaScript is an object-oriented language. Two important global objects available to us in JavaScript is the document and the window object. The document object represents the HTML5 document that the browser is currently displaying. This is very useful to you because the document object has important writing methods. These methods are write and writeln - if you have had any experience with other object-orientated languages, this may be familar to you. If not, these functions both accept a string argument and writes it to the HTML5 document. However, the difference between write and writeln is that writeln puts a new line at the end of your string when it writes it to the HTML5 document. With the use of this, you are able to even write html code such as document.writeln("&#60;h1&#62;Welcome to JavaScript Programming!&#60;&#47;h1&#62;");
+				</paragraph>
+				<paragraph>The window object represents an open window in a browser. The windows object is important for displaying and retrieving information from the user. This can be done with the alert and prompt method respectively. The alert method accepts a string and displays it to the user in a dialog box that pops up. This dialog box requires the user to note that it has recieved the alert with a mouse click on the "OK" button or by hitting Enter when the button is focused. The prompt method, similar to the alert method also accepts a string which is displayed to the user in a dialog box. However this time the dialog box has an input textfield with an "OK" and "Cancel" button. The return value of this method is a string.
+				</paragraph>
+				<paragraph>JavaScript defines a single lined comment with a preceding &#47;&#47;. Comments are important to define what certain portions of code are doing, as well as possibly type reminders since JavaScript is a loosely typed language. Multiline comments are defined as a preceding &#47;* start tag, and a post end tag of *&#47;. Multiline comments are useful for paragraphs and isolating code for testing and design purposes.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Document Object Model</sectiontitle>
+				<paragraph>The Document Object Model or commonly referred to as DOM is the object hierarchy which gives you scripting access to all elements on a web page. This is extremely useful in dynamically creating, modifying, and removing elements in a page. How you can think of DOM is essentially a tree-structure. In an HTML document, you are able to nest elements within other elements. For example when you create a body element you define other elements such as h1 or p within it. These elements can be referred to as a child node of the body element. Similarly a parent node is the node that contains the current node. For example the parent node of an h1 element contained within an body element is the body node. The root node (or the html node) is the top of the tree and is referred to as the root node because it does not have any parents.
+				</paragraph>
+				<paragraph>So now that we have a general outline of the structure, how do we go about modifying these elements with JavaScript? Each element in an HTML5 page has an attribute referred to as id. Each id attribute must be unique and is often define in an incrementing order. With these ids, you are able to find the node within JavaScript from these node ids. To obtain a node object in JavaScript you are able to use the statement var currentNode = document.getElementById(id); where the id is the id defined in the HTML5 document. After obtaining the node in javaScript you have access to its methods and attributes. For example, by calling the .value attribute of this node, you are able to obtain the content of the element. Similarly there are many different functions such as setAttribute and getAttribute which you can use to modify or obtain specific information about a certain node.
+				</paragraph>
+				<paragraph>Now the important step of knowing the hierarchy comes into play. Nodes have functions such as createNewNode which you are able to create new node objects. But how do we insert them into the HTML5 document? To do this you can use different insert methods available to the nodes such as insertBefore or appendChild. The insertBefore method takes in two node objects. The first argument is the node to insert, while the second argument is the child node in which to insert before. The appendChild function only takes in one argument (node) and just appends it as a child of the calling node. There are many other attributes and functions such as the parentNode attribute which returns the parent of the calling node which are important in the Document Object Model.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Event Handlers</sectiontitle>
+				<paragraph>An important functionality of JavaScript is the ability for to produce a dynamic webpage. To do this, Event Handlers are defined to handle the different actions of the user. This can create a great user experience and can act to direct users towards specific actions without reloading the webpage. To add event handlers you use the method addEventListener. This method accepts 3 arguments - the first argument is the event for which we're registering a handler (string). The second argument is the function that will be called to handle the event. The 3rd argument is typically false (the true value is beyond the scope of this tutorial). This method can be called for any DOM node. For example the window object or perhaps a paragraph node. A similar - yet contrasting method is the removeEventListener which accepts the same arguments are the addEventListener but - as the name suggests removes an event handler.
+				</paragraph>
+				<paragraph>We will be getting into some of the events that you can register for. The first event, which is commonly used on the window object is the load event. This event is handled only after the object is finished loading. This the case of the window object, the will only be handled after the full HTML5 page is fully loaded. This is extremely important for JavaScript coding as JavaScript must work in chronological order of loaded elements. For example, if you tried to use specific object methods without a fully loaded object, it will not run. JavaScript isn't designed so that it will wait if the object in question is not fully loaded yet. This makes making object initialization safer when it is put in one location after the HTML5 page has loaded.
+				</paragraph>
+				<paragraph>Other important events are the mousemove, mouseover, and mouseout events. The mousemove event fire whenever the user moves the mouse. This is important for any JavaScript program that relies on keeping the dynamic location of the mouse at all times. For example, creating a cannon game in a HTML5 page. The mouseover and mouseout events fire whenever the mouse enters and leaves the element respectively. This is definitely helpful if you have an image or text that you wish to change whenever the user hovers or leaves the element. For example this could be used to create a image that does fancy transformations when the user moves their mouse over certain elements.
+				</paragraph>
+			</section>
+		</unit>
+
+		<unit>
+			<title>XML and Ajax</title>
+			<section>
+				<sectiontitle>What is XML?</sectiontitle>
+				<paragraph>XML is short for Extensible Markup Language which is used to describe and format data to be exchanged between aplications over the internet. XML is a widely supported open technology. One factor that contributes to this is that document authors can create markup on any types of information making it extremely versitle. In addition XML is both human and machine readable which has definitely helped on its adoption rate. XMLs are case sensitive and require a XML parser to make the document's data available to applications. A XML document that follows correct syntax is called a well-formed XML document. This requires a single root element, properly nested tags with a start and end tag for each element.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Validating XML Documents</sectiontitle>
+				<paragraph>As we have mentioned above, a well-formed XML document can follow the correct syntax and similar to any program, can compile and run. However, the result of this program may be incorrect. This is similarly known in a XML. If a XML document is valid, but does not contain correctly formatted data, it is known as not valid. To validate XML documents by an external format style - for example making sure there is always a phonenumber tag in the correct place - there are two options: Document Type Definition (DTD) and schema. These are called validating parsers which check if an XML document follows the correct structure. Therefore it is possible that an XML document is well-formed, but is not valid.
+				</paragraph>
+				<paragraph>Document Type Definition (DTD) files are expressed using an EBNF (Extended Backus-Naur Form). In DTD files there are two main definitions to declare. These are the ELEMENT and ATTLIST definitions, which as their name implies defines rules for an element and attribute list. An example of them are &#60;!ELEMENT name ( #PCDATA )&#62; and &#60;!ATTLIST name ( #CDATA )&#62;. The elements called PCDATA and CDATA are known as parsed character data and character data respectively. Character data will pass data without modification, whereas parsed character data will be processed by the XML parser - meaning characters cannot contain markup characters. These types however do not check against character types such as int or string. This is problem is solved in schemas.
+				</paragraph>
+				<paragraph>Schemas are definitely more flexible than DTDs as DTDs lacked type checks on data. As well DTDs require developers to learn different types of grammers which can take away from the readability that XMLs provide. Schema documents are easy to pick up as they use XML syntax which developers greatly appreciate. In a Schema document, you define namespaces that will match the XML document. Then you can define complex and simple types within the schema. Simple types cannot contain attribute or child elements whereas complex types can. However complex types that contain simple content must extend or restrict some other existing type. In a Schema, you are able to define elements with these types to create the structure you wish to obtain. In addition a sequence of elements can be defined using the sequence start and end tags.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Extensible Stylesheet Language and XSL Transformation</sectiontitle>
+				<paragraph>Extensible Stylesheet Language (XSL) documents are a group of 3 technologies XSL-FO (XSL Formatting Objects), XPath (XML Path language) and XSLT (XSL Transformations). XSL-FO handles formatting, XPath handles efficient and effective structure and data locating by the means of a string-based language of expressions, and XSLT is the transformation of XML documents to other documents. XSL is extremely useful converting XML documents to HTML5 documents where the information can be displayed. XSLT involves tree structures where nodes are taken and transformed from the source tree (XML document) to the result tree (result tree).
+				</paragraph>
+				<paragraph>XSL documents are denoted by their extension of .xsl. XSL documents require XSL stylesheet start and end tags. An example of this is &#60;xsl-stylesheet version = "1.0" xmlns:xsl = "http:&#47;&#47;www.w3.org&#47;1999&#47;XSL&#47;Transform"&#62;content&#60;&#47;xsl:stylesheet&#62;. These tags are used to define that this document is an XSL file. The xsl namespace is used to bind the prefix xsl to W3C XSLT URI. As well the &#60;?xml version = "1.0"?&#62; is still required at the top of the document.
+				</paragraph>
+				<paragraph>Now althought you have defined a XSL document, you still need to define the output method and doctype of the XSL document. This is done within the xsl-stylesheet tags with the following denotation &#60;xsl:output method = "html" doctype-system = "about:legacy-compat"&#47;&#62;. Then you will define the initial template match that the XSL will use throughout the document. This is denoted with the &#60;xsl:template match = "&#47;"&#62;content&#60;&#47;xsl:template&#62;.After defining how the output of the document will go, you are able to write up your HTML5 document as regular. In areas where you need dynamic data from the XML file you are able to use XSL definitions such as &#60;xsl:value-of select = "name"&#47;&#62; to select specific properties of the source tree based on the tag name. Another definition is the for-each instead of the value-of which cycles through each source tree node at the given source tree location.
+				</paragraph>
+			</section>
+			<section>
+				<sectiontitle>Asynchronous JavaScript and XML and Rich Internet Applications</sectiontitle>
+				<paragraph>Although the Internet has grown drastically over the past while, it was not as always as fast as we known it to be today. Web Applications often fell behind in usability in comparsion to desktop applications. During this time, web applications were bottlenecked by synchronous requests and transactions to the server. This meant when a user interacted with something that required server processing, they essentially needed to wait until the request was met with a response. This would require the user to reload the entire page with the data from the reponse. This was often critized as the "brochure web" as a web full of hyptertext documents. 
+				</paragraph>
+				<paragraph>In a solution to this, Rich Internet Applications (RIAs) were invented to approximate the look, feel, and usability of desktop applications. Rich Internet Applications have two key attributes - performance and a rich GUI (Graphic User Interface). RIAs are largely contributed by Asynchronous JavaScript and XML or Ajax for short. Ajax separates the client-side and server-side so they can run in parallel. This greatly improves performance with the assistance of client-side scripting to make web applications more responsive and reducing the delays of server-side processing. This way, when the user receives a response from the server, the client does not need to wait and can do other things on their side. In addition, the client-side does not need to always refresh the page when data is received from the server making it have a similar feel to desktop applications.
+				</paragraph>
+				<paragraph>So how does JavaScript manage interactions with the server? This is commonly handled by the XMLHttpRequest object - XHR. In a more detailed explaination, when the user interacts with the page that requires a response from the server, a XMLHttpRequest object is created with the correct request. This request is asynchronous and is send off with the correct information it needs to entail a response. Since this request is asynchronous, the user can continue interacting with the application. Once the request is received from the server, a response is generated and the XMLHttpRequest object that was created earlier now needs to be processed by the client. A function known as a callback function is used for partial page updates and define how the request will be processed. Once the data is processed, the application can update the page. Multiple requests can be handled and requested concurrently creating a RIA.
+				</paragraph>
+			</section>
+		</unit>
+	</units>
+
+	<quizes>
+		<quiz>
+			<question>
+				<inquiry>Which of the following is a correct statement about HTML5?</inquiry>
+				<answer correct = "">HTML5 is a object-orientated language that specifies the structure and content of documents displayed in web browsers</answer>
+				<answer correct = "">HTML5 is a markup language that specifies only the content of documents displayed in web browsers</answer>
+				<answer correct = "*">HTML5 is a markup language that specifies the structure and content of documents displayed in web browsers</answer>
+				<answer correct = "">HTML5 is a object-orientated language that specifies only the content of documents displayed in web browsers</answer>
+			</question>
+			<question>
+				<inquiry>Which of the following elements do not require an end tag?</inquiry>
+				<answer correct = "">p</answer>
+				<answer correct = "">a</answer>
+				<answer correct = "*">img</answer>
+				<answer correct = "">table</answer>
+			</question>
+			<question>
+				<inquiry>What are the td tags used for?</inquiry>
+				<answer correct = "">Defining column data for the thead</answer>
+				<answer correct = "*">Defining column data for the tbody</answer>
+				<answer correct = "">Defining column data for the tfoot</answer>
+				<answer correct = "">Defining column data for the trow</answer>
+			</question>
+			<question>
+				<inquiry>When defining a CSS document the ".name" refers to the _____ having a value of name</inquiry>
+				<answer correct = "">id</answer>
+				<answer correct = "">name</answer>
+				<answer correct = "">tag</answer>
+				<answer correct = "*">class</answer>
+			</question>
+			<question>
+				<inquiry>Defining more than one font-family will have the following effect:</inquiry>
+				<answer correct = "">Cause a altering pattern of font-family on elements defined afterwards</answer>
+				<answer correct = "">Cause the program to pick the most popular one</answer>
+				<answer correct = "">Cause the program to pick from last to first depending if the font-family is available</answer>
+				<answer correct = "*">Cause the program to pick from first to last depending if the font-family is available</answer>
+			</question>
+		</quiz>
+
+		<quiz>
+			<question>
+				<inquiry>Which of the following is a correct statement about JavaScript?</inquiry>
+				<answer correct = "">JavaScript is a single-platform object-orientated scripting language used to enhance the functionality and appearance of web pages</answer>
+				<answer correct = "">JavaScript can be embedded into a HTML5 within the body of the HTML5 document</answer>
+				<answer correct = "*">JavaScript is referred to as a loosely typed language</answer>
+				<answer correct = "">JavaScript can be defined with an inline-style, embedded, and as an external file</answer>
+			</question>
+			<question>
+				<inquiry>Which of the following is correct?</inquiry>
+				<answer correct = "*">The document object refers to the current HTML5 document that the browser is currently displaying</answer>
+				<answer correct = "">The window object refers to the current HTML5 document that the browser is currently displaying</answer>
+				<answer correct = "">The document object has a altert and prompt method</answer>
+				<answer correct = "">The window object does not have access to the write method, but it does have access to the writeln method</answer>
+			</question>
+			<question>
+				<inquiry>What is false about the Document Object Model?</inquiry>
+				<answer correct = "">The Document Object Model can be described as a tree-structure</answer>
+				<answer correct = "*">The root node is known to be at the bottom of the tree</answer>
+				<answer correct = "">Elements from HTML5 can be found using their unique id in JavaScript</answer>
+				<answer correct = "">The Document Object Model gives you scripting access to all elements on a web page</answer>
+			</question>
+			<question>
+				<inquiry>What is the correct definition for the first 2 arguments in addEventListener</inquiry>
+				<answer correct = "">function, event</answer>
+				<answer correct = "*">event, function</answer>
+				<answer correct = "">load, event</answer>
+				<answer correct = "">start, function</answer>
+			</question>
+			<question>
+				<inquiry>Which of the following are not mouse events</inquiry>
+				<answer correct = "">mousemove</answer>
+				<answer correct = "*">mouseunder</answer>
+				<answer correct = "">mouseover</answer>
+				<answer correct = "">mouseout</answer>
+			</question>
+		</quiz>
+
+		<quiz>
+			<question>
+				<inquiry>XML is short for...</inquiry>
+				<answer correct = "">Extendable Markup Language</answer>
+				<answer correct = "">Extreme Mathematic Language</answer>
+				<answer correct = "*">Extensible Markup Language</answer>
+				<answer correct = "">Xenon Markup language</answer>
+			</question>
+			<question>
+				<inquiry>Which of the following is correct?</inquiry>
+				<answer correct = "">Document Type Definitions can check against character types</answer>
+				<answer correct = "">Schemas are less flexible than DTDs</answer>
+				<answer correct = "">Document Type Definitions are expressed using XML language</answer>
+				<answer correct = "*">An XML document may be well-formed, but not valid</answer>
+			</question>
+			<question>
+				<inquiry>Extensible Stylesheet Language is made of what 3 technologies?</inquiry>
+				<answer correct = "">XSL-FO, XPath, and XSL-FA</answer>
+				<answer correct = "">XSL-FO, XPath, and XSLT</answer>
+				<answer correct = "">XSL-FA, XPath, and XSLT</answer>
+				<answer correct = "*">Schema, XPath, and XSLT</answer>
+			</question>
+			<question>
+				<inquiry>Which of the following objects are used by JavaScript to handle requests to servers?</inquiry>
+				<answer correct = "">Connection</answer>
+				<answer correct = "">SchemaHttpRequest</answer>
+				<answer correct = "*">XMLHttpRequest</answer>
+				<answer correct = "">XMLConnectionRequest</answer>
+			</question>
+			<question>
+				<inquiry>What are the two key components in Ajax?</inquiry>
+				<answer correct = "">JavaScript and DTDs</answer>
+				<answer correct = "*">JavaScript and XML</answer>
+				<answer correct = "">RIA and a rich GUI</answer>
+				<answer correct = "">XML and a rich GUI</answer>
+			</question>
+		</quiz>
+	</quizes>
+</course>
