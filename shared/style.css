@@ -176,6 +176,10 @@ body.learn_city {
     position: relative;
 }
 
+.next_to {
+    display:inline-block;
+}
+
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.6s;
@@ -234,6 +238,7 @@ body.learn_city {
 
 .hidden {
     display: none;
+    text-align: center;
 }
 
 .one_line {
@@ -245,13 +250,13 @@ body.learn_city {
     border-width: 1ex;
     border-style: solid;
     display: inline-block;
-    margin: 1ex 5ex 1ex 5ex;
+    margin: 1ex auto 1ex auto;
     padding: 3ex;
 }
 
 .add_course {
     background-color: #ffffff;
-    margin-left: 35ex;
+    margin: 10ex auto 10ex auto;
     border-width: 1ex;
     border-color: #000000;
     color: #000000;

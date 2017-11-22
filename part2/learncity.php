@@ -246,6 +246,9 @@
 	        		// Error
 	        	}
 	        }
+	        else if (isset($_POST["delete_course"])) {
+
+	        }
 
 	        print('<!-- Title + Banner -->
 			<ul class = "navigation">
@@ -372,19 +375,31 @@
 
                	print("<div class = \"box_curr_course\">
                			<label id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</label>
-               		   </div>");
+               			<form class = \"next_to\" method = \"post\" action = \"learncity.php\">
+		            		<button type = \"submit\" name = \"view_course\">View</button>
+		            	</form>
+               			<form class = \"next_to\" method = \"post\" action = \"learncity.php\">
+		            		<button type = \"submit\" name = \"delete_course\">Delete</button>
+		            	</form>
+               		   </div>
+						");
+
+
 
                	$counter += 1;
 
             } // end while
 
-            print("<form method = \"post\" action = \"learncity.php\" enctype=\"multipart/form-data\">
-            		<input name = \"myCourse\" type = \"file\">
-            		<button type = \"submit\" name = \"add_course\">Submit Course</button>
-            	</form>");
 
-			print('</div>
-				</div>');
+			print('</div>');
+			print("<h2></h2>
+				<div class = \"add_course\">
+					<form method = \"post\" action = \"learncity.php\" enctype=\"multipart/form-data\">
+	            		<input name = \"myCourse\" type = \"file\">
+	            		<button type = \"submit\" name = \"add_course\">Submit Course</button>
+	            	</form>
+            	</div>
+            </div>");
 
 			// FAQ
 			//-----------------------------------------------------------------------------------

@@ -87,6 +87,15 @@ function start() {
 		"click", function() {show_content("faq_content");}, false);
 	}
 
+	var counter = 0;
+
+	while (document.getElementById("edit_it_" + counter) !== null) {
+		document.getElementById("edit_it_" + counter).addEventListener(
+		"click", function() {edit(this.id);}, false);
+
+		counter += 1;
+	}
+
 }
 
 // Start after page loads
