@@ -41,7 +41,7 @@ CREATE TABLE sections
 );
 
 
-CREATE TABLE paragraph
+CREATE TABLE paragraphs
 (
 	CourseId int,
 	Unit_number int,

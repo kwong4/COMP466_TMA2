@@ -132,15 +132,15 @@
 	        		//------------------------------------------------
 		        	$xml_course = simplexml_load_file($_FILES["myCourse"]["tmp_name"]);
 
-		        	$course_name = mysqli_real_escape_string($xml_course["name"]);
+		        	$course_name = mysqli_real_escape_string($database, $xml_course["name"]);
 
 		        	if ($xml_course->units->unit->count() != $xml_course->quizes->quiz->count()) {
 							//Error
 					}	
 
 		        	// build INSERT query
-	               	$query = "INSERT INTO courses" .
-	               			 "(Username, Name)" .
+	               	$query = "INSERT INTO courses " .
+	               			 "(Username, Name) " .
 	               			 "VALUES ('$username','$course_name')";
 
 	               	// execute query in Learn_City database
@@ -149,10 +149,9 @@
 					  	die(mysqli_error($database));
 					} // end if
 					else {
-						$query = "SELECT CourseId" .
-	               			 "FROM Courses" .
-	               			 "WHERE Username = '$username' AND " .
-	               			 "Name = '$course_name'";
+						$query = "SELECT CourseId " .
+	               			 "FROM Courses " .
+	               			 "WHERE Username = '$username' AND Name = '$course_name'";
 
 	               		// execute query in Learn_City database
 						if (!($result = mysqli_query($database, $query))) {
@@ -164,16 +163,16 @@
 							die("Error");
 						}
 
-						$row = mysqli_fetch_row($result)
+						$row = mysqli_fetch_row($result);
 						$course_id = $row[0];
 
 						for ($i = 0; $i < $xml_course->units->unit->count(); $i++) {
 
-							$unit_title = mysqli_real_escape_string($xml_course->units->unit[$i]->title);
+							$unit_title = mysqli_real_escape_string($database, $xml_course->units->unit[$i]->title);
 
 							// build INSERT query
-			               	$query = "INSERT INTO units" .
-			               			 "(CourseId, Unit_number, Unit_title)" .
+			               	$query = "INSERT INTO units " .
+			               			 "(CourseId, Unit_number, Unit_title) " .
 			               			 "VALUES ('$course_id','$i','$unit_title')";
 
 			               	// execute query in Learn_City database
@@ -184,11 +183,11 @@
 
 			               	for ($j = 0; $j < $xml_course->units->unit[$i]->section->count(); $j++) {
 
-			               		$section_title = mysqli_real_escape_string($xml_course->units->unit[$i]->section[$j]->sectiontitle);
+			               		$section_title = mysqli_real_escape_string($database, $xml_course->units->unit[$i]->section[$j]->sectiontitle);
 
 			               		// build INSERT query
-				               	$query = "INSERT INTO sections" .
-				               			 "(CourseId, Unit_number, Section_number, Section_title)" .
+				               	$query = "INSERT INTO sections " .
+				               			 "(CourseId, Unit_number, Section_number, Section_title) " .
 				               			 "VALUES ('$course_id','$i','$j','$section_title')";
 
 				               	// execute query in Learn_City database
@@ -199,12 +198,12 @@
 
 								for ($k = 0; $k < $xml_course->units->unit[$i]->section[$j]->paragraph->count(); $k++) {
 
-									$paragraph = mysqli_real_escape_string($xml_course->units->unit[$i]->section[$j]->paragraph[$k]);
+									$paragraph = mysqli_real_escape_string($database, $xml_course->units->unit[$i]->section[$j]->paragraph[$k]);
 
 									// build INSERT query
-					               	$query = "INSERT INTO paragraph" .
-					               			 "(CourseId, Unit_number, Section_number, Paragraph_number, Paragraph)" .
-					               			 "VALUES ('$course_id','$i','$j','$k', $paragraph)";
+					               	$query = "INSERT INTO paragraphs " .
+					               			 "(CourseId, Unit_number, Section_number, Paragraph_number, Paragraph) " .
+					               			 "VALUES ('$course_id','$i','$j','$k', '$paragraph')";
 
 					               	// execute query in Learn_City database
 									if (!($result = mysqli_query($database, $query))) {
@@ -215,11 +214,11 @@
 			               	}
 
 			               	for ($j = 0; $j < $xml_course->quizes->quiz[$i]->question->count(); $j++) {
-			               		$question = mysqli_real_escape_string($xml_course->quizes->quiz[$i]->question[$j]->inquiry);
-		               			$answer1 = mysqli_real_escape_string($xml_course->quizes->quiz[$i]->question[$j]->answer[0]);
-		               			$answer2 = mysqli_real_escape_string($xml_course->quizes->quiz[$i]->question[$j]->answer[1]);
-		               			$answer3 = mysqli_real_escape_string($xml_course->quizes->quiz[$i]->question[$j]->answer[2]);
-		               			$answer4 = mysqli_real_escape_string($xml_course->quizes->quiz[$i]->question[$j]->answer[3]);
+			               		$question = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->inquiry);
+		               			$answer1 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[0]);
+		               			$answer2 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[1]);
+		               			$answer3 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[2]);
+		               			$answer4 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[3]);
 
 		               			$answer = 0;
 
@@ -231,8 +230,8 @@
 		               			}
 
 		               			// build INSERT query
-				               	$query = "INSERT INTO quizes" .
-				               			 "(CourseId, Unit_number, Question_number, Inquiry, Answer1, Answer2, Answer3, Answer4, AnswerNum)" .
+				               	$query = "INSERT INTO quizes " .
+				               			 "(CourseId, Unit_number, Question_number, Inquiry, Answer1, Answer2, Answer3, Answer4, AnswerNum) " .
 				               			 "VALUES ('$course_id','$i','$j','$question','$answer1','$answer2','$answer3','$answer4','$answer')";
 
 				               	// execute query in Learn_City database
