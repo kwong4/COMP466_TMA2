@@ -124,8 +124,6 @@
 	        	$my_course_page = "style = \"display: block;\"";
 	        	$username = $_COOKIE["username"];
 
-	        	print("<h1>" . basename($_FILES["myCourse"]["name"]) . "</h1>");
-
 	        	if (isset($_FILES["myCourse"]) && ($_FILES["myCourse"]['error'] == UPLOAD_ERR_OK)) {
 
 	        		//Parser

@@ -19,6 +19,7 @@ CREATE TABLE courses
 	Name VARCHAR(100),
 	PRIMARY KEY (CourseId, Username, Name),
 	FOREIGN KEY (Username) REFERENCES users(Username)
+		ON DELETE CASCADE
 );
 
 CREATE TABLE units
@@ -28,6 +29,7 @@ CREATE TABLE units
 	Unit_title VARCHAR(100),
 	PRIMARY KEY (CourseId, Unit_number),
 	FOREIGN KEY (CourseId) REFERENCES courses(CourseId)
+		ON DELETE CASCADE
 );
 
 CREATE TABLE sections
@@ -38,6 +40,7 @@ CREATE TABLE sections
 	Section_title VARCHAR(100),
 	PRIMARY KEY (CourseId, Unit_number, Section_number),
 	FOREIGN KEY (CourseId, Unit_number) REFERENCES units(CourseId, Unit_number)
+		ON DELETE CASCADE
 );
 
 
@@ -50,6 +53,7 @@ CREATE TABLE paragraphs
 	Paragraph VARCHAR(2000),
 	PRIMARY KEY (CourseId, Unit_number, Section_number, Paragraph_number),
 	FOREIGN KEY (CourseId, Unit_number, Section_number) REFERENCES sections(CourseId, Unit_number, Section_number)
+		ON DELETE CASCADE
 );
 
 CREATE TABLE quizes
@@ -65,4 +69,5 @@ CREATE TABLE quizes
 	AnswerNum INT,
 	PRIMARY KEY (CourseId, Unit_number, Question_number),
 	FOREIGN KEY (CourseId, Unit_number) REFERENCES units(CourseId, Unit_number)
+		ON DELETE CASCADE
 );
