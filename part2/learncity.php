@@ -247,7 +247,21 @@
 	        	}
 	        }
 	        else if (isset($_POST["delete_course"])) {
+	        	$my_home_page = "style = \"display: none;\"";
+	        	$course_page = "style = \"display: none;\"";
+	        	$my_course_page = "style = \"display: block;\"";
+	        	$username = $_COOKIE["username"];
+	        	$course_id = $_POST["course_id"];
 
+	        	// build INSERT query
+               	$query = "DELETE FROM courses " .
+               			 "WHERE CourseId = '$course_id' AND Username = '$username'";
+
+               	// execute query in Learn_City database
+				if (!($result = mysqli_query($database, $query))) {
+				  	print("<p>Could not execute query!</p>");
+				  	die(mysqli_error($database));
+				} // end if
 	        }
 
 	        print('<!-- Title + Banner -->
@@ -290,6 +304,58 @@
 				<img class = "banner_image" src = "../shared/learncity_background.jpg">
 			</div>');
 
+	        if (isset($_POST["view_course"])) {
+	        	$my_home_page = "style = \"display: none;\"";
+	        	$course_page = "style = \"display: none;\"";
+	        	$my_course_page = "style = \"display: none;\"";
+	        	$username = $_COOKIE["username"];
+	        	$course_id = $_POST["course_id"];
+
+	        	// build SELECT query
+               	$query = "SELECT Unit_number, Unit_title " .
+               			 "FROM units " .
+               			 "WHERE CourseId = '$course_id'";
+
+               	// execute query in Learn_City database
+				if (!($units = mysqli_query($database, $query))) {
+				  	print("<p>Could not execute query!</p>");
+				  	die(mysqli_error($database));
+				} // end if
+
+				// build SELECT query
+               	$query = "SELECT Unit_number, Section_number, Section_title " .
+               			 "FROM sections " .
+               			 "WHERE CourseId = '$course_id'";
+
+               	// execute query in Learn_City database
+				if (!($sections = mysqli_query($database, $query))) {
+				  	print("<p>Could not execute query!</p>");
+				  	die(mysqli_error($database));
+				} // end if
+
+				// build SELECT query
+               	$query = "SELECT Unit_number, Section_number, Section_title, Paragraph_number, Paragraph " .
+               			 "FROM paragraphs " .
+               			 "WHERE CourseId = '$course_id'";
+
+               	// execute query in Learn_City database
+				if (!($paragraphs = mysqli_query($database, $query))) {
+				  	print("<p>Could not execute query!</p>");
+				  	die(mysqli_error($database));
+				} // end if
+
+				// build SELECT query
+               	$query = "SELECT Unit_number, Question_number, Injuiry, Answer1, Answer2, Answer3, Answer4, AnswerNum " .
+               			 "FROM quizes " .
+               			 "WHERE CourseId = '$course_id'";
+
+               	// execute query in Learn_City database
+				if (!($quizes = mysqli_query($database, $query))) {
+				  	print("<p>Could not execute query!</p>");
+				  	die(mysqli_error($database));
+				} // end if
+	        }
+
 	        // Home
 			//-----------------------------------------------------------------------------------
 
@@ -324,26 +390,32 @@
 
 			if (mysqli_num_rows($result) == 0) {
 				print('	<h3 class = "title_centre">No Courses on the site yet. Be the first!</h3>
-						<ol>');
+						<div class = "hidden">');
 			}
 			else {
 				print('	<h3 class = "title_centre">Courses</h3>
-						<ol>');
+						<div class = "box_curr_course">');
 			}
 
 
 			$counter = 0;
 			while ($row = mysqli_fetch_row($result)) {
 
-               	print("<li id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</li>");
+				print("<div class = \"box_curr_course\">
+               			<label id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</label>
+               			<form class = \"next_to\" method = \"post\" action = \"learncity.php\">
+               				<input type = \"text\" class = \"hidden\" name = \"course_id\" value = \"$row[1]\"></input>
+		            		<button type = \"submit\" name = \"view_course\">View</button>
+		            	</form>
+               		   </div>
+						");
 
                	$counter += 1;
 
             } // end while
 
-			print('</ol>');
-
-			print('</div>');
+			print('</div>
+				</div>');
 
 			// My Courses
 			//-----------------------------------------------------------------------------------
@@ -362,13 +434,13 @@
 			} // end if
 
 			if (mysqli_num_rows($result) == 0) {
-				print('	<h2 class = "title_centre">No Courses added yet.</h3>');
+				print('	<h2 class = "title_centre">No Courses added yet.</h3>
+					<div class = "hidden">');
 			}
 			else {
-				print('	<h2 class = "title_centre">Courses</h3>');
+				print('	<h2 class = "title_centre">Courses</h3>
+					<div class = "box_curr_course">');
 			}
-
-			print("<div class = \"box_curr_course\">");
 
 			$counter = 0;
 			while ($row = mysqli_fetch_row($result)) {
@@ -376,15 +448,15 @@
                	print("<div class = \"box_curr_course\">
                			<label id = \"course_$counter\" course_id = \"$row[1]\" >$row[0]</label>
                			<form class = \"next_to\" method = \"post\" action = \"learncity.php\">
+               				<input type = \"text\" class = \"hidden\" name = \"course_id\" value = \"$row[1]\"></input>
 		            		<button type = \"submit\" name = \"view_course\">View</button>
 		            	</form>
                			<form class = \"next_to\" method = \"post\" action = \"learncity.php\">
+               				<input type = \"text\" class = \"hidden\" name = \"course_id\" value = \"$row[1]\"></input>
 		            		<button type = \"submit\" name = \"delete_course\">Delete</button>
 		            	</form>
                		   </div>
 						");
-
-
 
                	$counter += 1;
 
