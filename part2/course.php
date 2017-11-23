@@ -177,7 +177,7 @@
 						for ($j = 2; $j < 6; $j++) {
 							$answer_num = $j - 2;
 							if ($row[6] == $answer_num) {
-								print("<input type = \"radio\" name = \"unit_$i" . $row[0] . "\" answer = \"1\" \">");
+								print("<input type = \"radio\" name = \"unit_$i" . $row[0] . "\" answer = \"1\">");
 							}
 							else {
 								print("<input type = \"radio\" name = \"unit_$i" . $row[0] . "\" answer = \"0\">");
@@ -189,7 +189,7 @@
 						}
 					}
 
-					print('<input type = "button" class = "submit" value = "Submit">
+					print('<input ' . "id = \"unit_questions_$i\" unit = \"$i\"" . ' type = "button" class = "submit" value = "Submit">
 						</div>
 					</div>');
 				}

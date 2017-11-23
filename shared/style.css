@@ -82,6 +82,10 @@ body.learn_city {
     font-weight: bold;
 }
 
+.highlight {
+    background-color: #73AD21;
+}
+
 .navigation {
 	color: #ffffff;
 	list-style: none;
