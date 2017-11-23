@@ -56,6 +56,32 @@ body.learn_city {
     text-shadow: none;
 }
 
+.course_navigation {
+    background-color: #ffffff;
+    color: #000000;
+    list-style: none;
+    text-align: right;
+    padding: 3ex 0 3ex 0;
+}
+
+.course_navigation > li {
+    display: inline-block;
+    padding: 0 3ex 0 3ex;
+    font-size: 3ex;
+}
+
+.course_navigation > li:hover {
+    color: #00FFFF;
+}
+
+.bulk {
+    padding: 1ex 0 3ex 3ex;
+}
+
+.important {
+    font-weight: bold;
+}
+
 .navigation {
 	color: #ffffff;
 	list-style: none;
@@ -70,6 +96,19 @@ body.learn_city {
 	font-size: 5ex;
 }
 
+.navigation > li:hover {
+    color: #000000;
+    text-shadow: none;
+}
+
+.course_title {
+    color: #000000;
+    float: left;
+    font-size: 4ex;
+    font-weight: bold;
+    padding-left: 2ex;
+}
+
 .title {
 	color: #ffffff;
 	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
@@ -79,9 +118,25 @@ body.learn_city {
 	padding-left: 2ex;
 }
 
-.navigation > li:hover {
-	color: #000000;
-	text-shadow: none;
+.section_portion {
+    padding-left: 3ex;
+}
+
+.description_para {
+    padding-left: 7ex;
+}
+
+.submit {
+    text-align: center;
+    position: relative;
+    padding: 1ex 0 1ex 0;
+    margin: 2ex 0 2ex 0;
+    left: 50%;
+    width: 10%;
+}
+
+.answer {
+    display: inline-block;
 }
 
 .main_bookmarks {
