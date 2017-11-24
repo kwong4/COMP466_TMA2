@@ -15,6 +15,7 @@
 
 		<?php
 
+			// Global variables to display, hide, or keep track of user selection/action
 	        $existing_username_error = "";
 	        $existing_email_error = "";
 	        $invalid_login_error = "";
@@ -37,11 +38,12 @@
 				die("<p>Could not open Forgetmenot database</p>");
 			}
 
-	        // ensure that all fields have been filled in correctly
+	        // if the user tries to login
 	        if (isset($_POST["login_submit"])) {
 
-	        	$username = isset($_POST["username"]) ? $_POST["username"] : "";
-	        	$password = isset($_POST["password"]) ? $_POST["password"] : "";
+	        	// Find username and password
+	        	$username = $_POST["username"];
+	        	$password = $_POST["password"];
 
 	        	// build SELECT query
                	$query = "SELECT *
@@ -54,21 +56,25 @@
 				  	die(mysqli_error($database));
 				} // end if
 
+				// Check if login is correct
             	if (mysqli_num_rows($result) == 1) {
             		setcookie("logged_in", "true");
             		setcookie("username", $username);
             		header("Location: forgetmenot.php");
             	}
+            	// Error message
             	else {
             		$login_error = "style = \"display: block;\"";
 	        		$invalid_login_error = "* Invalid Login Info";
             	}
 	        }
+	        // Check if the the user registers
 	        else if (isset($_POST["register_submit"])) {
 
-	        	$reg_username = isset($_POST["reg_username"]) ? $_POST["reg_username"] : "";
-		        $reg_email = isset($_POST["reg_email"]) ? $_POST["reg_email"] : "";
-		        $reg_password = isset($_POST["reg_password"]) ? $_POST["reg_password"] : "";
+	        	// Find register details
+	        	$reg_username = $_POST["reg_username"];
+		        $reg_email = $_POST["reg_email"];
+		        $reg_password = $_POST["reg_password"];
 		        $is_error = false;
 
 	        	// build SELECT query
@@ -93,18 +99,22 @@
 				  	die(mysqli_error($database));
 				} // end if
 
+				// Checks if user exists
             	if (mysqli_num_rows($result) == 1) {
             		$register_error = "style = \"display: block;\"";
             		$existing_username_error = "* Username already exists";
             		$is_error = true;
             	}
+            	// Checks if email exists
             	if (mysqli_num_rows($result2) == 1) {
             		$register_error = "style = \"display: block;\"";
             		$existing_email_error = "* Email already exists";
             		$is_error = true;
             	}
+            	// Checks if any errors
             	if ($is_error == false) {
 
+            		// Register user into database if doesn't exist
             		$query = "INSERT INTO users " .
             				 "(Username, Password, Email) " .
                			  	 "VALUES ('$reg_username', '$reg_password', '$reg_email')";
@@ -115,27 +125,37 @@
 					  	die(mysqli_error($database));
 					} // end if
 					else {
+
+						// Login user after register
 						setcookie("logged_in", "true");
             			setcookie("username", $reg_username);
             			header("Location: forgetmenot.php");
 					}
             	}
 	        }
+	        // Checks if user adds bookmarks
 			else if (isset($_POST["add_bookmark"])) {
+
+				// Sets the initial pages
 	        	$my_bookmark_page = "style = \"display: block;\"";
 	        	$my_home_page = "style = \"display: none;\"";
 
-	        	$bookmark = isset($_POST["bookmark"]) ? $_POST["bookmark"] : "";
-		        $url = isset($_POST["url"]) ? $_POST["url"] : "";
+	        	// Find the submitted info
+	        	$bookmark = $_POST["bookmark"];
+		        $url = $_POST["url"];
 		        $username = $_COOKIE["username"];
 
+		        // Check if url is valid
 	            if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+
+	            	// Error message for valid message
 	            	$invalid_url = $url;
 	            	$invalid_url_msg = "* Invalid URL";
 	            	$invalid_name = $bookmark;
 	            }
+	           	// Valid restaurant
 	            else {
-	            	// build SELECT query
+	            	// build INSERT query to add bookmark
 	               	$query = "INSERT INTO bookmarks " .
 	               			 "(Username, Name, Url) " .
 	               			 "VALUES ('$username', '$bookmark', '$url') " . 
@@ -148,15 +168,19 @@
 					} // end if
 	            }
 	        }
+	        // Check if user wants to delete bookmark
 	        else if (isset($_POST["delete_bookmark"])) {
+
+	        	// Sets the initial pages
 	        	$my_bookmark_page = "style = \"display: block;\"";
 	        	$my_home_page = "style = \"display: none;\"";
 
-	        	$url_name = isset($_POST["url_name"]) ? $_POST["url_name"] : "";
-		        $url_link = isset($_POST["url_link"]) ? $_POST["url_link"] : "";
+	        	// Find the submitted info
+	        	$url_name = $_POST["url_name"];
+		        $url_link = $_POST["url_link"];
 		        $username = $_COOKIE["username"];
 
-		        // build SELECT query
+		        // build DELETE query to delete bookmark
                	$query = "DELETE FROM bookmarks " .
                			 "WHERE " .
                			 "Username = '$username' AND " .
@@ -170,6 +194,7 @@
 				} // end if
 	        }
 	        
+	        // Title of HTML
 	        print('<!-- Title + Banner -->
 				<ul class = "navigation">
 
@@ -178,6 +203,7 @@
 						ForgetMeNot
 					</div>');
 
+	        // Show banners based if user is logged in
 	        if (isset($_COOKIE["logged_in"])) {
 	        	print('	<!-- Banner -->
 					<li id = "home">Home</li>
@@ -189,11 +215,10 @@
 					<li id = "login_prompt">Sign In</li>
 					<li id = "register_prompt">Register</li>');
 	        }
-
 			print("</ul>
-
 				<div id = \"home_content\" $my_home_page>");
 
+			// Change welcome message if user logged in
 			if (isset($_COOKIE["logged_in"])) {
 				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '!</h1>');
 			}
@@ -201,7 +226,7 @@
 				print(" <h1 class = \"title_centre\" id = \"welcome\">Welcome to ForgetMeNot!</h1>");
 			}
 							
-			// build SELECT query
+			// build SELECT query for top 10 bookmarks
            	$query = "SELECT Url " .
            			 "FROM bookmarks " .
            			 "GROUP BY Url " .
@@ -214,8 +239,10 @@
 				die(mysqli_error($database));
 			} // end if
 
+			// Main bookmarks portion
 			print('<div class = "main_bookmarks">');
 
+			// Change message based if there are any bookmarks
 			if (mysqli_num_rows($result) == 0) {
 				print('	<h3 class = "title_centre">No Bookmarks on the site yet. Be the first!</h3>
 						<ol>');
@@ -225,8 +252,10 @@
 						<ol>');
 			}
 
+			// If there are any results
             while ($row = mysqli_fetch_row($result)) {
 
+            	// Get title of website because people may have different names
             	$doc = new DOMDocument();
 
             	if($doc->loadHTMLFile($row[0])) {
@@ -236,20 +265,24 @@
 				    }
 				}
 
+				// Top 10 bookmarks
                	print("<li><a href = \"$row[0]\">$title</a></li>");
 
             } // end while
 
+            // HTML end tags
 			print('		</ol>
 					</div>
 				</div>');
 
+			// Create tab for My Bookmarks
 			print("<div id = \"mybookmark_content\" class = \"hidden\" $my_bookmark_page>");
 
+			// Style and title
 			print('<div class = "my_bookmarks">
 				<h1 class = "title_centre">Your BookMarks!</h1>');
 
-			// build SELECT query
+			// build SELECT query for your bookmarks
            	$query = "SELECT Name, Url " .
            			 "FROM bookmarks " .
            			 "WHERE Username = '" . $_COOKIE["username"] . "'";
@@ -260,6 +293,7 @@
 				die(mysqli_error($database));
 			} // end if
 
+			// Checks if any bookmarks are added
 			if (mysqli_num_rows($result) == 0) {
 				print('	<h3 class = "title_centre">No Bookmarks added yet.</h3>
 						<ul>');
@@ -269,27 +303,32 @@
 						<ul>');
 			}
 
+			// Use counter to keep track of the courses
 			$counter = 0;
+
 			// fetch each record in result set
             while ($row = mysqli_fetch_row($result)) {
 
-               print("<li><a id = item_$counter href = \"$row[1]\">$row[0]</a>
-               		  <label>
-               		  <button id = \"edit_it_$counter\">Edit</button>
-               		  <form class = \"one_line\"method = \"post\" action = forgetmenot.php>
-               		  <input type = \"text\" class = \"hidden\" name = \"url_name\" value = \"$row[0]\"></input>
-               		  <input type = \"text\" class = \"hidden\" name = \"url_link\" value = \"$row[1]\"></input>
-               		  <button type = \"submit\" name = \"delete_bookmark\">Delete</button></form>
-               		  </label>
-               	</li>");
+            	// Course info and ability to edit and delte course
+               	print("<li><a id = item_$counter href = \"$row[1]\">$row[0]</a>
+               		  	<label>
+               		  	<button id = \"edit_it_$counter\">Edit</button>
+               		  	<form class = \"one_line\"method = \"post\" action = forgetmenot.php>
+               		  	<input type = \"text\" class = \"hidden\" name = \"url_name\" value = \"$row[0]\"></input>
+               		  	<input type = \"text\" class = \"hidden\" name = \"url_link\" value = \"$row[1]\"></input>
+               		  	<button type = \"submit\" name = \"delete_bookmark\">Delete</button></form>
+               		  	</label>
+               		</li>");
 
                $counter += 1;
 
             } // end while
 
+            // HTML end tags
 			print('</ul>
 				</div>');
 
+			// HTML to add a bookmark
 			print("<div class = \"my_input\">");
 			print('	<form class = "modal-my-content" method = "post" action = "forgetmenot.php">
 						<label><strong>Bookmark Name: </strong></label>
@@ -303,10 +342,10 @@
 			print('     <br>
 						<button class = "action_button" type = "submit" name = "add_bookmark">Add/Modify Bookmark</button>
 					</form>
-				</div>');
+				</div>
+			</div>');
 
-			print('</div>');
-
+			// Login window
 	        print("<div class = \"modal\" id = \"login_inputs\" $login_error>");
 	        print('
 				<form class = "modal-content animate" method = "post" action = "forgetmenot.php">
@@ -327,6 +366,7 @@
 				</form>
 			</div>');
 
+			// Register window
 	        print("<div class = \"modal\" id = \"register_inputs\" $register_error>");
 			print('
 				<form class = "modal-content animate" method = "post" action = "forgetmenot.php">
@@ -351,6 +391,8 @@
 					</div>
 				</form>
 			</div>');
+
+			// Close Database and hide warnings
 			mysqli_close($database);
 			libxml_use_internal_errors($internalErrors);
 		?>

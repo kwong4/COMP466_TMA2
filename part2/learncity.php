@@ -15,6 +15,7 @@
 
 		<?php
 
+			// Global variables for errors and style variables
 			$existing_username_error = "";
 	        $existing_email_error = "";
 	        $invalid_login_error = "";
@@ -34,13 +35,14 @@
 				die("<p>Could not open Learn_City database</p>");
 			}
 
-			// ensure that all fields have been filled in correctly
+			// Login entry
 	        if (isset($_POST["login_submit"])) {
 
-	        	$username = isset($_POST["username"]) ? $_POST["username"] : "";
-	        	$password = isset($_POST["password"]) ? $_POST["password"] : "";
+	        	// User info
+	        	$username = $_POST["username"];
+	        	$password = $_POST["password"];
 
-	        	// build SELECT query
+	        	// build SELECT query to see if correct
                	$query = "SELECT *
                			  FROM users
                			  WHERE Username = '$username' AND Password = '$password'";
@@ -51,24 +53,30 @@
 				  	die(mysqli_error($database));
 				} // end if
 
+				// Checks if correct login info
             	if (mysqli_num_rows($result) == 1) {
+
+            		// Set cookies for correct login
             		setcookie("logged_in", "true");
             		setcookie("username", $username);
             		header("Location: learncity.php");
             	}
             	else {
+            		// Else display error
             		$login_error = "style = \"display: block;\"";
 	        		$invalid_login_error = "* Invalid Login Info";
             	}
 	        }
+	        // Register
 	        else if (isset($_POST["register_submit"])) {
 
-	        	$reg_username = isset($_POST["reg_username"]) ? $_POST["reg_username"] : "";
-		        $reg_email = isset($_POST["reg_email"]) ? $_POST["reg_email"] : "";
-		        $reg_password = isset($_POST["reg_password"]) ? $_POST["reg_password"] : "";
+	        	// Register info
+	        	$reg_username = $_POST["reg_username"];
+		        $reg_email = $_POST["reg_email"];
+		        $reg_password = $_POST["reg_password"];
 		        $is_error = false;
 
-	        	// build SELECT query
+	        	// build SELECT query to check if username exists
                	$query = "SELECT * " .
                			 "FROM users " .
                			 "WHERE Username = '$reg_username'";
@@ -79,7 +87,7 @@
 					die(mysqli_error($database));
 				} // end if
 
-				// build SELECT query
+				// build SELECT query if email exists
                	$query = "SELECT * " .
                			 "FROM users " .
                			 "WHERE Email = '$reg_email'";
@@ -90,18 +98,24 @@
 				  	die(mysqli_error($database));
 				} // end if
 
+				// Check if username exists and show error if is
             	if (mysqli_num_rows($result) == 1) {
             		$register_error = "style = \"display: block;\"";
             		$existing_username_error = "* Username already exists";
             		$is_error = true;
             	}
+
+            	// Check if email exists and show error if is
             	if (mysqli_num_rows($result2) == 1) {
             		$register_error = "style = \"display: block;\"";
             		$existing_email_error = "* Email already exists";
             		$is_error = true;
             	}
+
+            	// Check if any error
             	if ($is_error == false) {
 
+            		// Register user into database
             		$query = "INSERT INTO users " .
             				 "(Username, Password, Email) " .
                			  	 "VALUES ('$reg_username', '$reg_password', '$reg_email')";
@@ -112,31 +126,39 @@
 					  	die(mysqli_error($database));
 					} // end if
 					else {
+
+						// Set to logged in
 						setcookie("logged_in", "true");
             			setcookie("username", $reg_username);
             			header("Location: learncity.php");
 					}
             	}
 	        }
+	        // If adding course
 	        else if (isset($_POST["add_course"])) {
+
+	        	// Show My courses page and find username
 	        	$my_home_page = "style = \"display: none;\"";
 	        	$course_page = "style = \"display: none;\"";
 	        	$my_course_page = "style = \"display: block;\"";
 	        	$username = $_COOKIE["username"];
 
+	        	// Check if file uploaded correctly
 	        	if (isset($_FILES["myCourse"]) && ($_FILES["myCourse"]['error'] == UPLOAD_ERR_OK)) {
 
-	        		//Parser
+	        		//Parser for EML
 	        		//------------------------------------------------
 		        	$xml_course = simplexml_load_file($_FILES["myCourse"]["tmp_name"]);
 
+		        	// Delimit special characters
 		        	$course_name = mysqli_real_escape_string($database, $xml_course["name"]);
 
+		        	// User incorrectly enters EML
 		        	if ($xml_course->units->unit->count() != $xml_course->quizes->quiz->count()) {
 							//Error
 					}	
 
-		        	// build INSERT query
+		        	// build INSERT query for course
 	               	$query = "INSERT INTO courses " .
 	               			 "(Username, Name) " .
 	               			 "VALUES ('$username','$course_name')";
@@ -147,6 +169,8 @@
 					  	die(mysqli_error($database));
 					} // end if
 					else {
+
+						// Obtain course id if query executed correctly
 						$query = "SELECT CourseId " .
 	               			 "FROM Courses " .
 	               			 "WHERE Username = '$username' AND Name = '$course_name'";
@@ -157,18 +181,22 @@
 						  	die(mysqli_error($database));
 						} // end if
 						
+						// Error
 						if (mysqli_num_rows($result) == 0) {
 							die("Error");
 						}
 
+						// Course id
 						$row = mysqli_fetch_row($result);
 						$course_id = $row[0];
 
+						// Cycle through all of the units
 						for ($i = 0; $i < $xml_course->units->unit->count(); $i++) {
 
+							// Find unit title and delimit
 							$unit_title = mysqli_real_escape_string($database, $xml_course->units->unit[$i]->title);
 
-							// build INSERT query
+							// build INSERT query for units
 			               	$query = "INSERT INTO units " .
 			               			 "(CourseId, Unit_number, Unit_title) " .
 			               			 "VALUES ('$course_id','$i','$unit_title')";
@@ -179,11 +207,13 @@
 							  	die(mysqli_error($database));
 							} // end if
 
+							// Cycle through all of the sections
 			               	for ($j = 0; $j < $xml_course->units->unit[$i]->section->count(); $j++) {
 
+			               		// Find section title and delimit
 			               		$section_title = mysqli_real_escape_string($database, $xml_course->units->unit[$i]->section[$j]->sectiontitle);
 
-			               		// build INSERT query
+			               		// build INSERT query for section
 				               	$query = "INSERT INTO sections " .
 				               			 "(CourseId, Unit_number, Section_number, Section_title) " .
 				               			 "VALUES ('$course_id','$i','$j','$section_title')";
@@ -194,11 +224,13 @@
 								  	die(mysqli_error($database));
 								} // end if
 
+								// Cycle through all of the paragraphs
 								for ($k = 0; $k < $xml_course->units->unit[$i]->section[$j]->paragraph->count(); $k++) {
 
+									// Find paragraph info and delimit
 									$paragraph = mysqli_real_escape_string($database, $xml_course->units->unit[$i]->section[$j]->paragraph[$k]);
 
-									// build INSERT query
+									// build INSERT query for paragraph
 					               	$query = "INSERT INTO paragraphs " .
 					               			 "(CourseId, Unit_number, Section_number, Paragraph_number, Paragraph) " .
 					               			 "VALUES ('$course_id','$i','$j','$k', '$paragraph')";
@@ -211,15 +243,18 @@
 								}
 			               	}
 
+			               	// Cycle through all questions
 			               	for ($j = 0; $j < $xml_course->quizes->quiz[$i]->question->count(); $j++) {
+
+			               		// Delimit answers
 			               		$question = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->inquiry);
 		               			$answer1 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[0]);
 		               			$answer2 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[1]);
 		               			$answer3 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[2]);
 		               			$answer4 = mysqli_real_escape_string($database, $xml_course->quizes->quiz[$i]->question[$j]->answer[3]);
 
+		               			// Cycle through answers and find correct one
 		               			$answer = 0;
-
 		               			for ($k = 0; $k < 4; $k++) {
 		               				if ($xml_course->quizes->quiz[$i]->question[$j]->answer[$k]->correct == "*") {
 		               					$answer = $k;
@@ -227,7 +262,7 @@
 		               				}
 		               			}
 
-		               			// build INSERT query
+		               			// build INSERT query to insert question
 				               	$query = "INSERT INTO quizes " .
 				               			 "(CourseId, Unit_number, Question_number, Inquiry, Answer1, Answer2, Answer3, Answer4, AnswerNum) " .
 				               			 "VALUES ('$course_id','$i','$j','$question','$answer1','$answer2','$answer3','$answer4','$answer')";
@@ -246,14 +281,19 @@
 	        		// Error
 	        	}
 	        }
+	        // Checks if delete course
 	        else if (isset($_POST["delete_course"])) {
+
+	        	// Show My course page
 	        	$my_home_page = "style = \"display: none;\"";
 	        	$course_page = "style = \"display: none;\"";
 	        	$my_course_page = "style = \"display: block;\"";
+
+	        	// Grab user and course info
 	        	$username = $_COOKIE["username"];
 	        	$course_id = $_POST["course_id"];
 
-	        	// build INSERT query
+	        	// build DELETE query for course
                	$query = "DELETE FROM courses " .
                			 "WHERE CourseId = '$course_id' AND Username = '$username'";
 
@@ -264,6 +304,7 @@
 				} // end if
 	        }
 
+	        // Title and banner
 	        print('<!-- Title + Banner -->
 			<ul class = "navigation">
 
@@ -272,6 +313,7 @@
 					Learn City
 				</div>');
 
+	        // Change tabs if logged in
 	        if (isset($_COOKIE["logged_in"])) {
 	        	print('<!-- Banner -->
 					<li id = "home">Home</li>
@@ -299,16 +341,17 @@
 				</ul>');
 	        }
 
+	        // Banner image
 	        print('<!-- Banner image -->
 			<div class = "banner">
 				<img class = "banner_image" src = "../shared/learncity_background.jpg">
 			</div>');
 
-	        // Home
+	        // Home Page
 			//-----------------------------------------------------------------------------------
-
 	        print("<div id = \"home_content\" $my_home_page>");
 
+	        // Show different welcome message if logged in
 	        if (isset($_COOKIE["logged_in"])) {
 				print(' <h1 class = "title_centre">Welcome ' .  $_COOKIE["username"] . '!</h1>');
 			}
@@ -316,17 +359,17 @@
 				print(" <h1 class = \"title_centre\" id = \"welcome\">Welcome to Learn City!</h1>");
 			}
 
+			// Welcome page info
 			print('<p>Here at Learn City, we try to provide a platform for students and teachers all around!</p>
 				<p>Please feel free to take any of the courses listed under the "Courses" tab</p>
 				<p>If you have any courses you would like to post on our site, follow a guide under the "FAQ" tab</p>
 				</div>');
 
-			// Courses
+			// Courses page
 			//-----------------------------------------------------------------------------------
-
 			print("<div id = \"course_content\" class = \"hidden\" $course_page>");
 
-			// build SELECT query
+			// build SELECT query for name and course id
            	$query = "SELECT Name, CourseId " .
            			 "FROM Courses ";
 							
@@ -336,6 +379,7 @@
 				die(mysqli_error($database));
 			} // end if
 
+			// Show courses if there are some
 			if (mysqli_num_rows($result) == 0) {
 				print('	<h3 class = "title_centre">No Courses on the site yet. Be the first!</h3>
 						<div class = "hidden">');
@@ -345,7 +389,7 @@
 						<div class = "box_curr_course">');
 			}
 
-
+			// Cycle through all the courses and add view course button
 			$counter = 0;
 			while ($row = mysqli_fetch_row($result)) {
 
@@ -362,15 +406,15 @@
 
             } // end while
 
+            // HTML tags
 			print('</div>
 				</div>');
 
-			// My Courses
+			// My Courses page
 			//-----------------------------------------------------------------------------------
-
 			print("<div id = \"my_course_content\" class = \"hidden\" $my_course_page>");
 
-			// build SELECT query
+			// build SELECT query for name and course id
            	$query = "SELECT Name, CourseId " .
            			 "FROM Courses " . 
            			 "WHERE Username = '" . $_COOKIE["username"] . "'";
@@ -381,6 +425,7 @@
 				die(mysqli_error($database));
 			} // end if
 
+			// Check if any courses are present
 			if (mysqli_num_rows($result) == 0) {
 				print('	<h2 class = "title_centre">No Courses added yet.</h3>
 					<div class = "hidden">');
@@ -390,6 +435,7 @@
 					<div class = "box_curr_course">');
 			}
 
+			// Cycle through all of the courses and add button to view and delete
 			$counter = 0;
 			while ($row = mysqli_fetch_row($result)) {
 
@@ -407,10 +453,9 @@
 						");
 
                	$counter += 1;
-
             } // end while
 
-
+            // Add portion to allow user to add course from EML file
 			print('</div>');
 			print("<h2></h2>
 				<div class = \"add_course\">
@@ -421,13 +466,14 @@
             	</div>
             </div>");
 
-			// FAQ
+			// FAQ page
 			//-----------------------------------------------------------------------------------
 			print("<div id = \"faq_content\" class = \"hidden\">
 					<h2>Welcome to the FAQ page!</h2>
 					<p>Instructions...</p>
 				</div>");
 
+			// Login prompt
 			print("<div class = \"modal\" id = \"login_inputs\" $login_error>");
 	        print('
 				<form class = "modal-content animate" method = "post" action = "learncity.php">
@@ -448,6 +494,7 @@
 				</form>
 			</div>');
 
+			// Register prompt
 	        print("<div class = \"modal\" id = \"register_inputs\" $register_error>");
 			print('
 				<form class = "modal-content animate" method = "post" action = "learncity.php">
@@ -472,6 +519,8 @@
 					</div>
 				</form>
 			</div>');
+
+			// Close sql database
 			mysqli_close($database);
 		?>
 
