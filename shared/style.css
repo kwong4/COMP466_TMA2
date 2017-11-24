@@ -300,6 +300,11 @@ body.learn_city {
     text-align: center;
 }
 
+.left {
+    text-align: left;
+    padding: 1ex 0 3ex 3ex;
+}
+
 .one_line {
     display:inline-block;
 }

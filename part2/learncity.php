@@ -155,8 +155,24 @@
 
 		        	// User incorrectly enters EML
 		        	if ($xml_course->units->unit->count() != $xml_course->quizes->quiz->count()) {
-							//Error
+						//Error
+						die("Invalid EML. Please refer to FAQ");
 					}	
+
+					// build INSERT query for course
+	               	$query = "SELECT * " .
+	               			 "FROM courses " .
+	               			 "WHERE Name = '$course_name'";
+
+	               	// execute query in Learn_City database
+					if (!($result = mysqli_query($database, $query))) {
+					  	print("<p>Could not execute query!</p>");
+					  	die(mysqli_error($database));
+					} // end if
+
+					if (mysqli_num_rows($result) > 0) {
+						die("Course name already exists. Please use an different name and try again.");
+					}
 
 		        	// build INSERT query for course
 	               	$query = "INSERT INTO courses " .
@@ -183,7 +199,7 @@
 						
 						// Error
 						if (mysqli_num_rows($result) == 0) {
-							die("Error");
+							die("Error finding course. May not exist.");
 						}
 
 						// Course id
@@ -279,6 +295,7 @@
 	        	}
 	        	else {
 	        		// Error
+	        		die("Error uploading file. Please try again.");
 	        	}
 	        }
 	        // Checks if delete course
@@ -360,9 +377,11 @@
 			}
 
 			// Welcome page info
-			print('<p>Here at Learn City, we try to provide a platform for students and teachers all around!</p>
-				<p>Please feel free to take any of the courses listed under the "Courses" tab</p>
-				<p>If you have any courses you would like to post on our site, follow a guide under the "FAQ" tab</p>
+			print('<div class = "bulk">
+				<p>Here at Learn City, we try to provide a platform for students and teachers all around!</p>
+				<p>Please feel free to take any of the courses listed under the <strong>"Courses"</strong> tab</p>
+				<p>If you have any courses you would like to post on our site, follow a guide under the <strong>"FAQ"</strong> tab</p>
+					</div>
 				</div>');
 
 			// Courses page
@@ -400,6 +419,7 @@
 		            		<button type = \"submit\" name = \"view_course\">View</button>
 		            	</form>
                		   </div>
+               		   <br>
 						");
 
                	$counter += 1;
@@ -450,6 +470,7 @@
 		            		<button type = \"submit\" name = \"delete_course\">Delete</button>
 		            	</form>
                		   </div>
+               		   <br>
 						");
 
                	$counter += 1;
@@ -470,7 +491,39 @@
 			//-----------------------------------------------------------------------------------
 			print("<div id = \"faq_content\" class = \"hidden\">
 					<h2>Welcome to the FAQ page!</h2>
-					<p>Instructions...</p>
+					<p>Here will show answer your Frequently Asked Questions</p>
+					<br>
+					<br>
+					<h3>Can anyone view/add a course?</h3>
+					<p>Yes anyone can view/add a course if they would like to contribute to this site. However to be able to add a course, you must be registered and logged into our site. This is however not the case for viewing a course which you can do without logging in.</p>
+					<br>
+					<br>
+					<h3>Who's courses can I delete?</h3>
+					<p>You can only delete courses that you have uploaded from your profile. This is accessible from the <strong>My Courses</strong> tab once you log in.</p>
+					<br>
+					<br>
+					<h3>How do I add a course?</h3>
+					<p>You have to log in, go to the <strong>My Courses</strong> page and upload a EML (extension XML)</p>
+					<br>
+					<br>
+					<h3>What is a EML file?</h3>
+					<p>An EML file is an Educational Markup Language that is formatted to be easy to read and write so that your course you want to upload has a good template to follow</p>
+					<br>
+					<br>
+					<h3>Can you explain your EML format?</h3>
+					<p>Yeah forsure! Please refer to the following image:</p>
+					<img src = \"..\\shared\\EML.PNG\">
+					<br>
+					<div class = \"left\">
+						<p>So our Educational Markup Language starts off with a xml version tag which just tells that the file is an XML file.</p>
+						<p>Next we have a course tag. If you are unfimilar with XML, tags or inputs are shown as &#60;&#62;. This is a start tag. Most of the time start tags will always have end tags specified as &#60;&#47;a&#62;. This is the case for our EML.</p>
+						<p>Within these tags you define what the tag is, for example we have a course tag that starts in Line 3, and ends in Line 25. Anything in between the start and end tags are your values.</p>
+						<p>A start tag however can have attribute such as name in Line 3. We use this to determine the course name. Within our EML course, we have a units tag. Within this unit tag, we can have multiple unit tags. We only show one here but you would be able to have multiple units.</p>
+						<p>Furthermore, within a unit there must be a title for that unit, any number of sections. However each section must have a sectiontitle but can have as many paragraphs as the section requires.</p>
+						<p>Next we have our quizes tag. These are similar to the units tags but hold quizes. You must have a the same number of quiz tags as unit tags to ensure each unit has a quiz. Within a quiz tag, you can have as many questions as you like.</p>
+						<p>In a question tag, you must have a inquiry - Question. And four answers, with the correct one having a * within the correct attribute.</p>
+						<p>After you have a EML format marked up, upload it to your <strong>My Courses</strong> page and see your course come to life!</p>
+					</div>
 				</div>");
 
 			// Login prompt

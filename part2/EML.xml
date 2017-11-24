@@ -1,74 +1,25 @@
 <?xml version = "1.0"?>
 
-<unit>
-	<title></title>
-	<section>
-		<sectiontitle></sectiontitle>
-		<paragraph>
-		</paragraph>
-	</section>
-	<section>
-		<sectiontitle></sectiontitle>
-		<paragraph>
-		</paragraph>
-		<paragraph>
-		</paragraph>
-		<paragraph>
-		</paragraph>
-	</section>
-	<section>
-		<sectiontitle></sectiontitle>
-		<paragraph>
-		</paragraph>
-		<paragraph>
-		</paragraph>
-		<paragraph>
-		</paragraph>
-	</section>
-	<section>
-		<sectiontitle></sectiontitle>
-		<paragraph>
-		</paragraph>
-		<paragraph>
-		</paragraph>
-		<paragraph>
-		</paragraph>
-	</section>
-</unit>
-<quiz>
-	<question>
-		<inquiry></inquiry>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-		<answer correct = "*"></answer>
-		<answer correct = ""></answer>
-	</question>
-	<question>
-		<inquiry></inquiry>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-		<answer correct = "*"></answer>
-		<answer correct = ""></answer>
-	</question>
-	<question>
-		<inquiry></inquiry>
-		<answer correct = ""></answer>
-		<answer correct = "*"></answer>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-	</question>
-	<question>
-		<inquiry></inquiry>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-		<answer correct = "*"></answer>
-	</question>
-	<question>
-		<inquiry></inquiry>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-		<answer correct = ""></answer>
-		<answer correct = "*"></answer>
-	</question>
-</quiz>
+<course name = "Course Name">
+	<units>
+		<unit>
+			<title></title>
+			<section>
+				<sectiontitle></sectiontitle>
+				<paragraph>
+				</paragraph>
+			</section>
+		</unit>
+	</units>
+	<quizes>
+		<quiz>
+			<question>
+				<inquiry></inquiry>
+				<answer correct = ""></answer>
+				<answer correct = ""></answer>
+				<answer correct = "*"></answer>
+				<answer correct = ""></answer>
+			</question>
+		</quiz>
+	</quizes>
+</course>
