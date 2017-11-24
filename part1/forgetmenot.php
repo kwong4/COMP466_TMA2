@@ -27,6 +27,7 @@
 	        $invalid_url = "";
 	        $invalid_name = "";
 	        $internalErrors = libxml_use_internal_errors(true);
+	        error_reporting(E_ERROR | E_PARSE);
 
 	        // Connect to MySQL
 			if (!($database = mysqli_connect("localhost", "iw3htp", "password"))) {
@@ -257,12 +258,12 @@
 
             	// Get title of website because people may have different names
             	$doc = new DOMDocument();
+            	$doc->loadHTMLFile($row[0]);
+            	$xpath = new DOMXPATH($doc);
 
-            	if($doc->loadHTMLFile($row[0])) {
-				    $list = $doc->getElementsByTagName("title");
-				    if ($list->length > 0) {
-				        $title = $list->item(0)->textContent;
-				    }
+            	$title = $xpath->query('//title')->item(0)->nodeValue;
+            	if(!$title) {
+			    	$title = $row[0];
 				}
 
 				// Top 10 bookmarks
