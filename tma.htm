@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<!-- COMP466 Assignment 2: tma.htm														  -->
+<!-- Name: Kevin Wong							 										  -->
+<!-- ID: 3339323								 										  -->
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>COMP 466 Main Page</title>
+		<link rel = "stylesheet" type = "text/css" href = "shared/style.css">
+		<script src = "tma.js"></script>
+	</head>
+
+	<body class = "assignment">
+
+		<!-- Title + Banner -->
+		<ul class = "navigation">
+
+			<!-- Section Title -->
+			<div id = "title" class = "title">
+				COMP 466 Main Page
+			</div>
+
+			<!-- Banner -->
+			<li id = "home">Home</li>
+			<li id = "tab_1">ForgetMeNot</li>
+			<li id = "tab_2">Learn City</li>
+
+			<!-- Banner image -->
+			<div class = "banner">
+				<img class = "banner_image" src = "shared/banner_img_2.jpg">
+			</div>
+		</ul>
+
+		<!-- Home Page-->
+		<div class = "assignment_parts" id = "home_content">
+			<h2>Assignment Cover Page</h2>
+			<p>Assignment Number: <strong>2</strong></p>
+			<p>Course Name: <strong>COMP 466 - Advanced Technologies for Web-Based Systems</strong></p>
+			<p>Name: <strong>Kevin Wong</strong></p>
+			<p>Student ID: <strong>3339323</strong></p>
+			<p>Date Started on Assignment : <strong>Nov. 8, 2017</strong></p>
+			<p>Date Completed : <strong>Nov. 23, 2017</strong></p>
+			<p>Estimated Hours Spent on Assignment: <strong>60 Hours</strong></p>
+			<p><em>Images used in the assignment can be found <a href = "https://pixabay.com/en/banner-header-gull-bird-fly-1090835/">here</a>, <a href = "https://pixabay.com/en/binary-binary-code-binary-system-2910663/">here</a> and <a href = "https://pixabay.com/en/maple-leaf-book-reading-dear-diary-638022/">here</a> from geralt and DariusSankowski at Pixabay  which fall under CC0 Creative Commons license.</em> </p>
+		</div>
+
+		<!-- XML Resume-->
+		<div class = "assignment_parts" id = "forgetmenot_content">
+			<h2><a href = "part1/forgetmenot.php">Forget Me Not</a></h2>
+			<hr/>
+			<h3>Requirements:</h3>
+			<p>For this project, you will be using MySQL and PHP to develop a web application that provides an online bookmarking service to users on the Internet. The requirements are as follows:</p>
+
+			<ul>
+				<li>The web application should have a good thoughtful interface, with menus and navigation buttons as needed.</li>
+				<li>It should have a name or logo shown across all the pages.</li>
+				<li>It should begin with a welcome or greeting message and a list of ten most popular websites that people have bookmarked.</li>
+				<li>Once signed in, a list of bookmarks should be displayed, and the user can browse any web site in the list in a new browser tab or window by clicking the URL.</li>
+				<li>The user will also be able to add new websites to the list and edit and delete any of the existing ones in the list;</li>
+				<li>When adding or editing, user input needs to be validated using JavaScript, to make sure the URLs are correct and active.</li>
+			</ul>
+
+			<p>Save Part 1 files in the directory TMA2/part1.</p>
+			<p><strong>Please contact me for the period of time for the server to be open</strong></p>
+
+			<hr/>
+			<h3>Interpretation of Assignment:</h3>
+			<p>My interpretation of this assignment was to create a web application that was meant to store bookmarks. The backend of the application was to use MySQL and PHP to handle storing these applications. As well as having a thoughtful interface, it was to have it's name across all pages. It's main page was to have a greeting message with a list of the top 10 most popular websites that people have bookmarked. Once you have signed in, you can manage your bookmarks (edit, delete, and add). When you add a bookmark it must be validated.</p>
+
+			<hr/>
+			<h3>Analysis, Design, and Implementation</h3>
+			<p>The design I took with this assignment was to first create a pleasant interface. After I created the interface, I created the backend mySQL tables which consisted of two tables, one containing user info and the next containing bookmark info. The Username was to be a foreign key in the bookmarks table. When I continued onto creating the interface and use PHP to handle the talking with MySQL, I used the same .php page. I wanted to create a feel of an actual web application with dynamic interfaces rather than going from web page to web page similar to what the textbook referred to as a brochure web. Another reason why I chose one .php file is because if I used other php files, I would need to use cookies to possibly hold sensitive information which the textbook and best practices advised against. I still couldn't get away without using cookies, but I used them to store just the username and if the user was authenticated. This application also does error checking on valid URL inputs and tries to obtain a generic URL title when displaying the TOP 10 bookmarks on the site. Because every user could name a site different. Overall, I really enjoyed creating the application and the feel and animation of the login feels smooth</p>
+
+			<hr/>
+			<h3>Guide</h3>
+			<p>The guide to using this site is that once you first enter the site, you land on the <strong>"Home"</strong> Page where the TOP 10 most popular bookmarked sites show up. Once you register or login, you have the another option called <strong>"My Bookmarks"</strong> which allow you to manage your own bookmarks (edit, delete, add). You also have the option of Signing out.</p>
+			<p>If the base tables are present in MySQL, run the Database.sql from the Source Files to create them</p>
+			<p>In addition, the PHP are to be ran on a server to properly render.</p>
+			<hr/>
+			<h2><a href = "part1">Source Files</a></h2>
+		</div>
+
+		<!-- Tutorial-->
+		<div class = "assignment_parts" id = "learncity_content">
+			<h2><a href = "part2/learncity.php">Learn City</a></h2>
+			<hr/>
+			<h3>Requirements:</h3>
+			<p>In this part of the assignment, you are required to develop a small-scale online learning management system that can be used to deliver online courses to learners.</p>
+			<p>To that end, you will have to think about what these online courses are, how they can they be developed and how they should be stored on the web server, how they can be retrieved from the server, how they should be delivered to a web browser, and then rendered/presented properly on the web browser.</p>
+			<p>The development of online courses is the collaboration of efforts of subject matter experts (SMEs) and experts in computing and web technology. It is very common that those SMEs do not know much about computing, and don’t know how to use HTML and other web technologies needed to present an attractive course, but they should be quite comfortable with languages and terms used in education. So, the first technical step you need to take is to design a SME-friendly language for marking up educational materials, EML in our term (just another XML like you created for marking up your resume), for the SMEs to use. The EML you design may be a comprehensive one for marking up the contents for an entire course, or several languages in small scale for different components of a course. For example, you may have an EML for a lesson/lecture delivered in just a teaching/learning session, an EML for marking up quizzes, and an EML for marking up assignments, etc. You may look at some existing languages by searching for educational markup language in Google or other search engine.</p>
+			<p>After SMEs (for this assignment, you will be the SME) have written the course contents in your EML(s), the documents must be stored on the server before they can be delivered to the learners on the web. You may think that you can save each of the documents written in your EML as a file, like the resume file you wrote for assignment 1, but this is not practical. Files may work when there is just one or only a few learning documents, butwhen there are many, as happens in practical situations, the documents become unmanageable. That's why we need a database.</p>
+			<p>The next technical step is to design the database table or tables. Over the years, I have seen different designs from students in the course. The most simple and straightforward one is to have a single table. In the table each row contains information for a lesson or quiz, including the actual content written in your EML. To make the learning contents retrievable and manageable, you will need fields to identify the course and the unit the lesson or quiz belongs to. You may also keep the details of the courses and units in the same table for the purpose of this assignment project, though you wouldn't do that in practice because it is really inefficient; in a real world situation is to have separate tables to store information about courses and units.</p>
+			<p>To deliver the course contents (lessons and quizzes in our context), you will need to navigate through the database to find the right lesson or quiz that the learner has requested, and them retrieve the actual content in EML. For the content to be properly rendered or presented on learner's browser, you need to translate the content in your EML to HTML. We call this process parsing. Instead of using XSLT as you did for the first assignment, parsing EML to HTML needs to be done with PHP. So, the last important technical step for this project is to write a parser in PHP.</p>
+			<p>When doing this project, or any project for the assignments, you must take a system approach. That's why students are expected to have completed comp361 or a similar course on system analysis and design before taking this course.</p>
+			<p>The distribution of marks is as follows:</p>
+			<p></p>
+			<ul>
+				<li>
+					<strong>System analysis and design – 10 marks.</strong>
+					<p>Your analysis and design need to be presented in the assignment report. The details should include, but not be limited to, analysis of requirements, data flow, functional modules of learning management, the relationships of these modules, and system layout within browser’s window.</p>
+				</li>
+				<li>
+					<strong>Educational Markup language - 10 marks.</strong>
+					<p>Your educational markup language should be presented in the assignment report by showing all the tags and explanation of their intended purpose with examples.</p>
+				</li>
+				<li>
+					<strong>Database design - 10 marks.</strong>
+					<p>Database is used to store information about courses, units, lessons, quizzes, learners, and other learning object such as images, audio and video files, as well as actual learning contents written in your educational markup language. When designing database tables, you have to think about how that information and those actual data will be kept on the server.</p>
+				</li>
+				<li>
+					<strong>Parser - 10 marks.</strong>
+					<p>On the server side, the parser written in PHP parses the learning contents written in your EML taken from database into HTML documents that can be rendered by web browsers. Don’t be afraid of writing a parser for this purpose! It can be as simple as using some PHP regular expression functions to do pattern matching and string replacement.</p>
+				</li>
+				<li>
+					<strong>Learning Contents - 10 marks.</strong>
+					<p>Since you have written three tutorials or lessons for part 2 of your first assignment, you may take the contents from there, and rewrite them in your EML. You must have enough contents in your system, to make it a real web-based system.</p>
+				</li>
+				<li>
+					<strong>Quizzes - 10 marks.</strong>
+					<p>There should be an online quiz for each teaching lesson.</p>
+				</li>
+				<li>
+					<strong>Implementation - 10 marks.</strong>
+					<p>The system should be implemented and deployed on a web server, and accessible for your tutor to evaluate. The implementation includes the overall look-and-feel of the learning management system, essential components of such a web-based system, and the functionalities of online learning management.</p>
+				</li>
+			</ul>
+			<p>Save all files related to Part 2 in the directory TMA2/part2.</p>
+			<p>You must test your web applications developed for the assignment on your own server before you submit them and make the websites hosting the assignments and applications accessible for your tutor to evaluate. For your personal protection you should not put your student ID in any of the documents if hosted on an unprotected web site. After your tutor has finished the evaluation, you must remove all the assignment-related documents from the web site.</p>
+			<p><strong>Please contact me for the period of time for the server to be open</strong></p>
+			<p>You must submit all the files under TMA2 in a zip package through Moodle.</p>
+			<hr/>
+			<h3>Interpretation of Assignment:</h3>
+			<p>My interpretation of the assignment was to create a small-scale learning management system/web application. This learning system required it to be SME (Subject Matter Expert) friendly, which meant that they were experts in their own subject matters but not necessarily about computing or technology. To resolve this issue, we needed to create a EML (Educational Markup Lanaguage) which helped marry the two concepts of SME and technology. EML is something that is more read-able and easier to understand when they create their courses in it. There however needs to be a parser that parses this information from EML to a visual HTML page. This EML information must be stored in a database a having strict files won't become messy later on. In addition, you must plan and analyze your system.</p>
+
+			<hr/>
+			<h3>System Analysis and Design</h3>
+			<h4><u>Analysis of Requirements</u></h4>
+			<p>Initial analysis of the requirements show the non-technological users will use this application. Therefore, this system needs to have a good GUI (Graphic User Interface) for regular users, be easy to navigate and understand. Ensuring that this system can be learned fairly easily is essential. SME (Subject Matter Experts) will be using this system any may not be comfortable in web technologies. They are know their vocabulary in their field, but not necessary ones such as HTML. In addition, because SME are using this, there should be instructions like a FAQ page, and have a template where they can input their information that is easy to understand and technologically sound. Therefore EML or Educational Markup Language is a viable solution that can be used to allow SMEs to interact with this system. IThis solution should provide properly presented solutions with error-handling in case SMEs misunderstand. In the backend of this application is that these EML files should be stored into a database. This database is required because files can become unmanageable if they were stored as is. Therefore a solid database design is required to produce a system that is easy to understand, code, and maintain. The Database may have multiple tables to keep organization. These EML files should be parsed in PHP. In addition to having a easily navigable so users obtain and are presented with the correct course. </p>
+			<br>
+			<h4><u>Data Flow</u></h4>
+			<p>The Data Flow of this application first starts off with the user. The user enters the site, either as a guest or a user. They are able to access any of the courses on the site. We will first assume there are no courses. So first off the user registers or logs in. If the user registers, they enter information that is checked with the database users (to see if any exists) and if it doesn't their information is inserted into the users table. If they decide to login, their credientals are compared with existing users in the users table. The site is made in PHP with Javascript to handle client navigation and communication with the database and logic around the site. Once the user is logged in, they have to create a course following the EML of the site. An FAQ (Frequently Asked Questions) tab to help users understand what the site expects. Once the user has written their EML, they go to "My Courses" tab and uploads the file. This file is handled by PHP to ensure proper format and to communicate with the database. The PHP parser extracts the information and appends the correct information to the Courses, Units, Sections, Paragraphs, and Quizes table in mySQL. These tables are interlinked by foreign keys with a cascade delete. Once the user uplaods their course it should show up under "Courses" and "My Courses." At this point they are able to delete it (Cascade Delete) to delete info from the tables or view it. The listing is extracted with PHP from the MySQL table courses. Once a view of the course is requested, the user is sent to the course.php. This php obtains the keys of the tables in which to extract the information. This includes the Courseid which they are able to cascade down and find out the required information necessary to produce a result to the user. First off PHP takes a look into the units table, then each unit will expand upon sections of that corresponding unit, which therefore each section corresponds to each paragraph. This is done in a cascade fashion as well as quizes matching each unit (at the end). Then the user is able to sign out (which clears her cookies from when she signed in).</p>
+			<br>
+			<h4><u>Functional Modules of Learning Management and Relationships</u></h4>
+			<p>The first functional module of this application is the initial php webpage. This webpage gives a GUI for the user to navigate and use. This webpage uses PHP to handle dynamic data from the client (login, register, change tabs, view and delete courses) and from the server (MySQL database queries, JavaScript, and XML files.) From the webpage, the user is able to sign in/register which enables cookies. These cookies are used to determine the result by the PHP site (which changes depending on the cookies). As well this opens up the PHP to talk (query) the database (mySQL) to display their corresponding result. If a course is view, the initial webpage redirects them to a course.php site which is posted with the necessary information to pull from the database and present the data in a viewable fashion.</p>
+			<br>
+			<h4><u>System Layout in Browser's Window</u></h4>
+			<p>The layout of this system was to provide a easily understandable and great GUI for the user. The logo is shown on the top left and the different navigation tabs are shown in the top right. I wanted to make sure that these were visibly interactable, so I made them change color if hovered over. In addition, this had a login and register options that showed up, but still displaying the background that they were on (just focused on the prompt). I wanted to ensure the animation and style of these prompts were easy to understand and to navigate. The banner image was just a asthetic choice which I believe adds to the style of the webpage. In addition, the courses are shown in seperate bolded boxes with buttons are close (and self-explain their purpose) - such as View, Delete, Upload, and Submit. The course.php followed the same design expect without the login portion and different images to create a visual difference between the course and the site.</p>
+			<hr/>
+			<h4><u>Educational Markup Lanaguage</u></h4>
+			<p>The educational markup language is fully explained in the "FAQ" section of the site. However, I will briefly overview it. In this EML, you first need the XML header. Next a course tag is rquired with a name attribute of the name of the course. Within this course you have units and quizes tags. In the units tag, you are able to have multiple different unit tags. In each unit tag, there is a title tag (for that unit) and section tags (which you are able to have multiple of). These section tags contain a section title and paragraph tags. There can be multiple paragraph tags. This concludes the units tag which bring to atention the quizes tag. In a similar fashion, there are quiz tags which there can be multiple of, but need to have the same numberof quiz tags as unit tags because they correspond based on chronological order. next in a quiz tag, there are question tags which can be multiple of. In this question tag there is a inquiry tag, followed by 4 answer tags. The Inquiry tag specifies the question, and the answer tags refer to the answer (multiple choice) given. The correct one is marked with a "*" on the correct attribute, incorrect ones are marked with "".</p>
+			<hr/>
+			<h4><u>Database Design</u></h4>
+			<p>This database was designed to keep information seperated (to avoid repetition and clustering in one table). This was done by creating a seperation of dependent information that could be linked through an ID. The first table was users, which contain the user info table such as Username, Password and Email (PK - Username). The next table created was the courses which contained a CourseId that was not null and auto_incrementing. In addition it had the username from the users table as a foreign key and a Name of the Course. The next table related is the units table, which further builds upon this relationship by creating a foreign key reference to the CourseId in the courses table. A Unit number is assigned and the title of each unit is present. The next table involved is that each unit has sections - there a table called sesctions that has a foeign key reference on the CourseId, Unit_number from the units table. Further expanding on this concept is the paragraphs which are contained in each section and foreign key reference CourseId, Unit_number, and Section_number from the sections. In a similar level with the units, a quiz table is linked by foreign key reference of each CourseId and Unit_number to the courses table. In any case, the linked tables are build with a ON DELETE CASCADE which further exempts their relationship. The reasoning behind seperating the information and linking them is because having a big cluster table is inefficient and hard to read. By creating this seperation and relationship you are better able to understand it and are provided with an easy method of deletion/selection.</p>
+			<hr/>
+			<h4><u>Parser</u></h4>
+			<p>The parser was done in PHP. In a general overview, EML documents are uploaded and parsed with this parser which pulls out the correct information and stores them into the database. The parser first accepts the request from a post, which also contain the file of EML. Then it is loaded using simplexml, which is makes it easy to iterate and traverse through the document. The looping is done through the highest level and through each element progressively lowering down. In each case the result is delimted with a mysqli_real-escape_string (and eventually html delimited (special characters) after retrieval from the database). In addition to cycling through the EML and inserting them into the database, it is also error checking to ensure the proper numbers are in place.</p>
+			<hr/>
+			<h4><u>Learning Content and Quizzes</u></h4>
+			<p>The Learning content was taken from Assignment 1 and is meant to show a high level of the information learned in Units 1-3 in COMP 466. I believe they contain enough information to obtain a introductary understanding of the concepts which they can further develop on with COMP 466 :). There are also quizzes under each unit.</p>
+			<hr/>
+			<h3>Analysis, Design, and Implementation</h3>
+			<p>The design I took with this assignment was to really create something similar to a desktop application (in terms of dynamic and partial page updates). I wanted to follow proper procedures in which cookies do not store sentitive information while creating a very nice GUI. I really enjoyed creating this application and designing the database. Furthermore I would have done was use UNIQUEIDENTIFIERS (Might be a different name in MySQL) instead of incremental INTS. In addition the PHP parser to insert into the database and afterwards to render from the database proved that you have to delimit any special characters. I would have also liked to view the courses in the same web page (dynamic again), but that proved a bit more difficult especially with the other portions you have to consider. I eventually decided with that design once I decided/realized that you didnt need to login to view the course. Therefore, making it viable to redirect the user to another page.</p>
+			<hr/>
+			<h3>Guide</h3>
+			<p>When you enter the site, you are able to view different courses without registering by clicking on the "Courses" page. However if you register or login, you are able to access another tab called "My Courses" where you are able to upload you own EML file, add, delete, and view your courses. In addition there is a initial guide on the page which is easy to follow and a FAQ (Frequently Asked Questions) which help guide the user to create a proper EML and use the site. If you view a course it will take you to another page which loads the necessary information about that course.</p>
+			<p>If the base tables are present in MySQL, run the Database.sql from the Source Files to create them</p>
+			<p>There are also is a template of the EML called EML.xml under the Source files, a sample course (course.xml) and a sample invalid course (invalid_course.xml) which you can try on the system.</p>
+			<p>In addition, the PHP are to be ran on a server to properly render.</p>
+			<hr/>
+			<h2><a href = "part2">Source Files</a></h2>
+		</div>
+
+	</body>
+</html>
